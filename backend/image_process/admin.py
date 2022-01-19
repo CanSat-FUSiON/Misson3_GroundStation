@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import ImageTestModel
+
+
+@admin.register(ImageTestModel)
+class ImageTestModelAdmin(admin.ModelAdmin):
+    pass
