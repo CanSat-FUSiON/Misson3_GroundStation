@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["172.31.43.202", "cmd-moon.space", "ase.cmd-moon.space"]
 
+CSRF_TRUSTED_ORIGINS = ["172.31.43.202", "cmd-moon.space", "ase.cmd-moon.space"]
+
 
 # Application definition
 
