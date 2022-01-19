@@ -15,3 +15,8 @@ class ImageGetterAPIView(APIView):
 
         ImageTestModel.objects.create(image=validated_data["image"])
         return Response(status=status.HTTP_200_OK)
+
+
+class HealthAPIView(APIView):
+    def get(self, request: Request) -> Response:
+        return Response()
