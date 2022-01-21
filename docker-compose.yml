@@ -9,7 +9,7 @@ services:
     networks:
       - backend_tier
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=fusion
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - TZ="Asia/Tokyo"

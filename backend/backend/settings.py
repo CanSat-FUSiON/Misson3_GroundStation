@@ -102,7 +102,7 @@ DATABASES = {
     # }
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "efuthp",
+        "NAME": "fusion",
         "USER": env("POSTGRESQL_USER"),
         "PASSWORD": env("POSTGRESQL_PASSWORD"),
         "HOST": env("POSTGRESQL_HOST"),
