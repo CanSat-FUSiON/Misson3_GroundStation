@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path("fusion/admin/", admin.site.urls),
-    path("fusion/", include("image_process.urls")),
+    path("fusion/api/v1/", include("image_process.urls")),
 ]

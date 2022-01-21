@@ -25,12 +25,18 @@ SECRET_KEY = "django-insecure-up1807%^k9ypqknsqp2l2h&ctho$a$c*)090k6(c1c*_d37)c!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["172.31.43.202", "cmd-moon.space", "ase.cmd-moon.space"]
+ALLOWED_HOSTS = [
+    "172.31.43.202",
+    "cmd-moon.space",
+    "ase.cmd-moon.space",
+    "fusion.cmd-moon.space",
+]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://172.31.43.202",
     "https://cmd-moon.space",
     "https://ase.cmd-moon.space",
+    "https://fusion.cmd-moon.space",
 ]
 
 
