@@ -14,7 +14,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - TZ="Asia/Tokyo"
     ports:
-      - 5432:5432
+      - 5433:5433
   fusion-backend:
     container_name: fusion-backend
     build: ./backend

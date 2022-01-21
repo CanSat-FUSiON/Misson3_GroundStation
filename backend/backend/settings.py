@@ -106,7 +106,7 @@ DATABASES = {
         "USER": env("POSTGRESQL_USER"),
         "PASSWORD": env("POSTGRESQL_PASSWORD"),
         "HOST": env("POSTGRESQL_HOST"),
-        "PORT": "5432",
+        "PORT": "5433",
     }
 }
 
