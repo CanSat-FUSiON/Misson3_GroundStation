@@ -18,7 +18,7 @@ services:
   fusion-backend:
     container_name: fusion-backend
     build: ./backend
-    command: python ./backend/manage.py migrate && python ./backend/manage.py runserver 0.0.0.0:7070
+    command: bash -c "python ./backend/manage.py migrate && python ./backend/manage.py runserver 0.0.0.0:7070"
     volumes:
       - ./backend:/app/backend
     networks:
