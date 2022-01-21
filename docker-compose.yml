@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  # db:
+  #   container_name: efut_postgres
+  #   image: postgres:${POSTGRES_VERSION}
+  #   volumes:
+  #     - postgres-db:/var/lib/postgresql/data
+  #   networks:
+  #     - backend_tier
+  #   environment:
+  #     - POSTGRES_DB=postgres
+  #     - POSTGRES_USER=${POSTGRES_USER}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - TZ="Asia/Tokyo"
+  #   ports:
+  #     - 5432:5432
+  backend:
+    container_name: fusion-backend
+    build: ./backend
+    command: python ./backend/manage.py runserver 0.0.0.0:7070
+    volumes:
+      - ./backend:/app/backend
+    networks:
+      - backend_tier
+    ports:
+      - "7070:7070"
+      - "3030:3030"
+    depends_on:
+      - db
+    #   - redis
+  # redis:
+  #   container_name: dms_redis
+  #   image: redis:${REDIS_VERSION}
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis:/data
+  #   networks:
+  #     - dms_backend_tier
+  # nuxt:
+  #   container_name: efut_nuxt
+  #   image: node:16.12.0
+  #   networks:
+  #     - backend_tier
+  #   volumes:
+  #     - ./efuthp-front:/app/efuthp-front
+  #   working_dir: /app/efuthp-front
+  #   command: [sh, -c, npm install && HOST=0 npm run dev]
+  #   ports:
+  #     - 3000:3000
+  frontend:
+    container_name: fusion-frontend
+    image: node:16.12.0
+    networks:
+      - backend_tier
+    volumes:
+      - ./frontend:/app/frontend
+    working_dir: /app/frontend
+    command: [sh, -c, npm install && npm run serve]
+    ports:
+      - 7071:7071
+
+networks:
+  backend_tier:
+    driver: bridge
+# volumes:
+#   postgres-db:
+#     driver: local
+#     name: efuthp-db
+#   redis:
+#     driver: local
+#     name: dms-redis
