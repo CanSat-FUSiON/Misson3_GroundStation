@@ -1,20 +1,20 @@
 version: "3.9"
 
 services:
-  # db:
-  #   container_name: efut_postgres
-  #   image: postgres:${POSTGRES_VERSION}
-  #   volumes:
-  #     - postgres-db:/var/lib/postgresql/data
-  #   networks:
-  #     - backend_tier
-  #   environment:
-  #     - POSTGRES_DB=postgres
-  #     - POSTGRES_USER=${POSTGRES_USER}
-  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-  #     - TZ="Asia/Tokyo"
-  #   ports:
-  #     - 5432:5432
+  fusion-db:
+    container_name: fusion-postgres
+    image: postgres:${POSTGRES_VERSION}
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    networks:
+      - backend_tier
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - TZ="Asia/Tokyo"
+    ports:
+      - 5432:5432
   fusion-backend:
     container_name: fusion-backend
     build: ./backend
@@ -25,8 +25,8 @@ services:
       - backend_tier
     ports:
       - "7070:7070"
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
     #   - redis
   # redis:
   #   container_name: dms_redis
@@ -63,10 +63,10 @@ services:
 networks:
   backend_tier:
     driver: bridge
-# volumes:
-#   postgres-db:
-#     driver: local
-#     name: efuthp-db
+volumes:
+  postgres-db:
+    driver: local
+    name: efuthp-db
 #   redis:
 #     driver: local
 #     name: dms-redis
