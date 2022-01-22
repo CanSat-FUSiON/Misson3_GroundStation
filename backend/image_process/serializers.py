@@ -7,3 +7,7 @@ class ImageTestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageTestModel
         fields = "__all__"
+
+
+class ImageCaptureSerializer(serializers.Serializer):
+    pass

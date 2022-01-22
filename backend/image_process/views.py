@@ -1,4 +1,7 @@
+from wsgiref import validate
+from PIL import Image
 from typing import cast
+import requests
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -20,3 +23,13 @@ class ImageGetterAPIView(APIView):
 class HealthAPIView(APIView):
     def get(self, request: Request) -> Response:
         return Response()
+
+
+class ImageCaptureAPIView(APIView):
+    def get(self, request: Request) -> Response:
+        url = cast(dict, request.data).get("url")
+        if url is not None:
+            res = requests.get(url)
+
+
+# this is an experimental comment!
