@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 from tracemalloc import stop
+=======
+from wsgiref import validate
+from PIL import Image
+>>>>>>> f312ff2 (add comments)
 from typing import cast
+import requests
 from rest_framework.views import APIView
 import requests
 from rest_framework.request import Request
@@ -45,6 +51,7 @@ class HealthAPIView(APIView):
         return Response()
 
 
+<<<<<<< HEAD
 
 class EnvironmentAPIView(APIView):
     def get(self, request: Request) -> Response:
@@ -136,3 +143,13 @@ class EndloopAPIView(APIView):
 
 
 
+=======
+class ImageCaptureAPIView(APIView):
+    def get(self, request: Request) -> Response:
+        url = cast(dict, request.data).get("url")
+        if url is not None:
+            res = requests.get(url)
+
+
+# this is an experimental comment!
+>>>>>>> f312ff2 (add comments)
