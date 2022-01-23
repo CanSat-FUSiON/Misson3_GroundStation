@@ -3,7 +3,7 @@ import Home from "../views/Home.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
+    path: "/fusion/control",
     name: "Home",
     component: Home,
   },
