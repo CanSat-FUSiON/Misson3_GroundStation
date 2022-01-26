@@ -59,7 +59,7 @@ import axios from "axios"
 })
 export default class Home extends Vue {
   photo(){
-    axios.get("http://2.tcp.ngrok.io:15233/capture", {responseType: "blob"})
+    axios.get("http://8.tcp.ngrok.io:14071/capture", {responseType: "blob"})
     .then(resp =>{
       document.getElementById("major-photo")?.setAttribute("src",window.URL.createObjectURL(resp.data));
     })
