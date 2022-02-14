@@ -36,7 +36,9 @@
             />
           </div>
 
-          <div class="text-caption"></div>
+          <div class="text-caption">
+            {{ control_status_message }}
+          </div>
         </q-card-section>
       </q-card>
     </div>
@@ -109,5 +111,9 @@ export default defineComponent({
 .view-container-header {
   padding: 0;
   margin: 8px;
+}
+
+.btn-actions {
+  padding-bottom: 24px;
 }
 </style>
