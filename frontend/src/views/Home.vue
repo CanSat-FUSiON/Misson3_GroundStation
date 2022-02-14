@@ -58,6 +58,9 @@ import axios from "axios"
   },
 })
 export default class Home extends Vue {
+  right(){
+    axios.get("localhost:8000/fusion/control/right")
+  }
   photo(){
     axios.get("http://2.tcp.ngrok.io:11240/capture", {responseType: "blob"})
     .then(resp =>{

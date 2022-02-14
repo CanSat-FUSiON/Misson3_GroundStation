@@ -68,9 +68,9 @@ def red_masks_get(sampleimage):
     image = cv2.imread(sampleimage) # ファイル読み込み
 
     # HSVでの色抽出
-    hsvLower_0 = np.array([0, 80, 50])    # 抽出する色の下限0(赤の抽出のため二つにわけて合成が必要)
-    hsvLower_1 = np.array([178, 80, 50])  # 抽出する色の下限1(赤の抽出のため二つにわけて合成が必要)
-    hsvUpper_0 = np.array([3, 255, 255])    # 抽出する色の上限0(赤の抽出のため二つにわけて合成が必要)
+    hsvLower_0 = np.array([0, 60, 50])    # 抽出する色の下限0(赤の抽出のため二つにわけて合成が必要)
+    hsvLower_1 = np.array([170, 60, 50])  # 抽出する色の下限1(赤の抽出のため二つにわけて合成が必要)
+    hsvUpper_0 = np.array([10, 255, 255])    # 抽出する色の上限0(赤の抽出のため二つにわけて合成が必要)
     hsvUpper_1 = np.array([179, 255, 255])   # 抽出する色の上限1(赤の抽出のため二つにわけて合成が必要)
 
     hsvResult_0 = hsvExtraction(image, hsvLower_0, hsvUpper_0)  # 画像0を作成
@@ -120,7 +120,7 @@ def center_get(sampleimage):
 def size_get(sampleimage):
     img = cv2.imread(sampleimage)
     height, width, channel = img.shape
-    return (width,height)
+    return [width,height]
 
 
 
@@ -128,7 +128,7 @@ def size_get(sampleimage):
 def rot_get(center, size, f_mm, diagonal_mm):  
 
     width_mm = diagonal_mm * size[0]/np.sqrt(size[0]*size[0] + size[1]*size[1])
-    sita_rad = np.arctan((width_mm*(center[0]-size[0]/2)/size[0])/f_mm)  # 回転角θ[rad]を導出
+    sita_rad = np.arctan((width_mm * (size[0] / 2 - center[0]) / size[0]) / f_mm)  # 回転角θ[rad]を導出
     sita = 180*sita_rad/np.pi
 
     return sita

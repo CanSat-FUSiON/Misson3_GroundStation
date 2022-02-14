@@ -13,14 +13,14 @@
             <q-btn
               class="control-button"
               rounded
-              label="UP"
-              @click="control('up')"
+              label="FORWARD"
+              @click="control('forward')"
             />
             <q-btn
               class="control-button"
               rounded
-              label="DOWN"
-              @click="control('down')"
+              label="BACK"
+              @click="control('back')"
             />
             <q-btn
               class="control-button"
@@ -49,7 +49,7 @@
 import axios from 'axios';
 import { defineComponent, ref } from 'vue';
 
-const WROOM_URL = 'http://example.com';
+const BACKEND_URL = 'http://localhost:8000/fusion/control';
 
 const sleep = (msec: number) =>
   new Promise((resolve) => setTimeout(resolve, msec));
@@ -66,7 +66,7 @@ export default defineComponent({
         console.log(`Sending ${direction} message...`);
 
         const res = await axios
-          .get(`${WROOM_URL}/${direction}`)
+          .get(`${BACKEND_URL}/${direction}`)
           .catch(async (err) => {
             control_status_message.value =
               'Something went wrong. Please see console for details.';
