@@ -33,6 +33,8 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
     "172.31.43.202",
     "cmd-moon.space",
     "ase.cmd-moon.space",
@@ -57,12 +59,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "corsheaders",
     # Apps
     "image_process",
     "control",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -71,6 +75,12 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "backend.urls"
 
@@ -97,18 +107,18 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "fusion",
-        "USER": env("POSTGRESQL_USER"),
-        "PASSWORD": env("POSTGRESQL_PASSWORD"),
-        "HOST": env("POSTGRESQL_HOST"),
-        "PORT": "5433",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "fusion",
+#         "USER": env("POSTGRESQL_USER"),
+#         "PASSWORD": env("POSTGRESQL_PASSWORD"),
+#         "HOST": env("POSTGRESQL_HOST"),
+#         "PORT": "5433",
+#     }
 }
 
 

@@ -66,7 +66,7 @@ export default defineComponent({
         console.log(`Sending ${direction} message...`);
 
         const res = await axios
-          .get(`${BACKEND_URL}/${direction}`)
+          .get(`${BACKEND_URL}/${direction}/`)
           .catch(async (err) => {
             control_status_message.value =
               'Something went wrong. Please see console for details.';

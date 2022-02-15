@@ -6,12 +6,12 @@ from rest_framework import status
 import requests
 
 
-IP_adress = 'http://192.168.3.14'
+IP_address = 'http://172.20.10.2'
 
 
 class rightAPIView(APIView):
     def get(self, request: Request) -> Response:
-        r = requests.get('http://192.168.3.14/right')
+        r = requests.get(IP_address + '/right')
         if r.status_code==200:
             return Response()
         else:
@@ -20,7 +20,7 @@ class rightAPIView(APIView):
 
 class leftAPIView(APIView):
     def get(self, request: Request) -> Response:
-        r = requests.get(IP_adress + '/left')
+        r = requests.get(IP_address + '/left')
         if r.status_code==200:
             return Response()
         else:
@@ -29,7 +29,7 @@ class leftAPIView(APIView):
 
 class forwardAPIView(APIView):
     def get(self, request: Request) -> Response:
-        r = requests.get(IP_adress + '/forward')
+        r = requests.get(IP_address + '/forward')
         if r.status_code==200:
             return Response()
         else:
@@ -38,7 +38,7 @@ class forwardAPIView(APIView):
 
 class backAPIView(APIView):
     def get(self, request: Request) -> Response:
-        r = requests.get(IP_adress + '/back')
+        r = requests.get(IP_address + '/back')
         if r.status_code==200:
             return Response()
         else:
