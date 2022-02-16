@@ -7,6 +7,6 @@ img = 'sample.jpg'
 
 # 画像の種類によってmain関数を選択
 
-#red.main(img, 4.8, 4.5)  # ESP32-CAM用
-red.main(img, 4, 7.14)  # iPhone11用
+#red.test(img, 4.8, 4.5)  # ESP32-CAM用
+#red.test(img, 4, 7.14)  # iPhone11用
 

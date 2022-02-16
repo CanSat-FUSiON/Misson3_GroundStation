@@ -7,8 +7,18 @@ import matplotlib.pyplot as plt
 
 
 
-# メイン関数(sampleimage:取得した画像, f_mm:焦点距離[mm], diagonal_mm:対角線[mm])
-def main(sampleimage, f_mm, diagonal_mm):
+#実際に用いる関数(sampleimage:取得した画像）
+def main(sampleimage):
+    
+    Rotation = rot_get(center_get(sampleimage),size_get(sampleimage),4.8,4.5)
+    Occupancy = occ_get(sampleimage)
+    
+    return [Rotation, Occupancy]
+
+
+
+# テスト関数(sampleimage:取得した画像, f_mm:焦点距離[mm], diagonal_mm:対角線[mm])
+def test(sampleimage, f_mm, diagonal_mm):
 
     image_output(red_masks_get(sampleimage),'sample_red.jpg')
     image_output(gray_get(sampleimage),'sample_gray.jpg')
@@ -137,7 +147,7 @@ def rot_get(center, size, f_mm, diagonal_mm):
 
 ##############################################################################################################
 
-
+#1.テストをする場合
 
 # 解析したい画像を入力
 img = '******'
@@ -146,7 +156,7 @@ img = '******'
 
 # 画像の種類によってmain関数を選択
 
-#main(img, 4.8, 4.5)  # ESP32-CAM用
-#main(img, 4, 7.14)  # iPhone11用
+#test(img, 4.8, 4.5)  # ESP32-CAM用
+#test(img, 4, 7.14)  # iPhone11用
 
 

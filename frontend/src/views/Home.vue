@@ -59,7 +59,16 @@ import axios from "axios"
 })
 export default class Home extends Vue {
   right(){
-    axios.get("localhost:8000/fusion/control/right")
+    axios.get("localhost:8000/fusion/control/right"),
+  }
+  left(){
+    axios.get("localhost:8000/fusion/control/left"),
+  }
+  forward(){
+    axios.get("localhost:8000/fusion/control/forward"),
+  }
+  back(){
+    axios.get("localhost:8000/fusion/control/back"),
   }
   photo(){
     axios.get("http://2.tcp.ngrok.io:11240/capture", {responseType: "blob"})
