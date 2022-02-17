@@ -4,6 +4,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 import requests
+from django.core.files.base import ContentFile
 
 from .models import ImageTestModel
 from .serializers import ImageTestSerializer, EnvironmentSerializer
@@ -17,27 +18,28 @@ IP_address_wroom = '*******'
 class ImageGetterAPIView(APIView):
     def post(self, request: Request) -> Response:
         r = requests.get(IP_address_cam + '/capture')
-        serializer = ImageTestSerializer(data=r.data)
-        validated_data = cast(dict, serializer.validated_data)
-        ImageTestModel.objects.create(image=validated_data["image"])
+        image = ContentFile(r.content)  # データがCV2で読める形にする
         
-        control_data = main(sampleimage=validated_data["image"])  # 本田チェック(validated_dataは撮れた画像のつもりです・・・)
+        control_data = main(sampleimage=image)
         
-        q = ImageTestModel(Rotation = control_data[0], Occupancy = control_data[1])
-        q.save()
+        #q = ImageTestModel(Rotation = control_data[0], Occupancy = control_data[1])
+        
+        ang = control_data[0]
+        occ = control_data[1]
+        
+        if occ<=0.3:
+            r_2 = request.get(IP_address_wroom + '/image_automatic' + '?a=' + ang)
         
         return Response()
         
     def get(self, request: Request) -> Response:  # 本田チェック
-        latest_data = ImageTestModel.objects.latest("created_on")
+        r = requests.get(IP_address_cam + '/capture')
+        image = ContentFile(r.content)  # データがCV2で読める形にする
         
-        ang = latest_data.Rotation
-        occ = latest_data.Occupancy
+        control_data = main(sampleimage=image)
         
-        if occ<=0.3:
-            r = requests.get(IP_address_wroom + '/image_automatic' + '?a=' + ang)  # 本田チェック
-        else:
-            return Response()
+        q = ImageTestModel(Rotation = control_data[0], Occupancy = control_data[1])
+        q.save()
         
         if r.status_code==200:
             return Response()

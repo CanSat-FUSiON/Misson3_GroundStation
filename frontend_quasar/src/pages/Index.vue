@@ -49,7 +49,7 @@
 import axios from 'axios';
 import { defineComponent, ref } from 'vue';
 
-const BACKEND_URL = 'http://localhost:8000/fusion/control';
+const BACKEND_URL = 'https://c122-60-74-77-131.ngrok.io/fusion/control';
 
 const sleep = (msec: number) =>
   new Promise((resolve) => setTimeout(resolve, msec));

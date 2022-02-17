@@ -6,7 +6,7 @@ from rest_framework import status
 import requests
 
 
-IP_address = 'http://192.168.3.14'
+IP_address = 'http://0.tcp.ngrok.io:13622'
 
 
 class rightAPIView(APIView):
