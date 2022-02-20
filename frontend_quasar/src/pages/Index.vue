@@ -49,7 +49,7 @@
 import axios from 'axios';
 import { defineComponent, ref } from 'vue';
 
-const BACKEND_URL = 'https://c122-60-74-77-131.ngrok.io/fusion/control';
+const BACKEND_URL = 'http://6bd4-60-74-77-131.ngrok.io/fusion/control';  //localhost:8000のngrokURL
 
 const sleep = (msec: number) =>
   new Promise((resolve) => setTimeout(resolve, msec));
