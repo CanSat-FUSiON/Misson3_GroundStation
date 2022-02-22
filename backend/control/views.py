@@ -5,14 +5,13 @@ from rest_framework.response import Response
 from rest_framework import status
 import requests
 
-IP_address_cam = 'http://d771-60-74-77-131.ngrok.io'
-IP_address_wroom = 'https://20b0-60-74-77-131.ngrok.io'
+IP_address_cam = 'http://cb11-2400-2200-76a-fa56-2954-c527-14d1-d31a.ngrok.io'
+IP_address_wroom = 'http://8fe7-2400-2200-76a-fa56-2954-c527-14d1-d31a.ngrok.io'
 
 
 class rightAPIView(APIView):
     def get(self, request: Request) -> Response:
         r = requests.get(IP_address_wroom + '/right')
-        q = requests.get(IP_address_cam + '/capture')  # htmlに画像を表示させる方法教わる
         if r.status_code==200:
             return Response()
         else:
@@ -21,8 +20,7 @@ class rightAPIView(APIView):
 
 class leftAPIView(APIView):
     def get(self, request: Request) -> Response:
-        r = requests.get(IP_address_wroom + '/left')
-        q = requests.get(IP_address_cam + '/capture')
+        r = requests.get(IP_address_wroom + '/left') 
         if r.status_code==200:
             return Response()
         else:
@@ -32,7 +30,6 @@ class leftAPIView(APIView):
 class forwardAPIView(APIView):
     def get(self, request: Request) -> Response:
         r = requests.get(IP_address_wroom + '/forward')
-        q = requests.get(IP_address_cam + '/capture')
         if r.status_code==200:
             return Response()
         else:
@@ -42,7 +39,6 @@ class forwardAPIView(APIView):
 class backAPIView(APIView):
     def get(self, request: Request) -> Response:
         r = requests.get(IP_address_wroom + '/back')
-        q = requests.get(IP_address_cam + '/capture')
         if r.status_code==200:
             return Response()
         else:

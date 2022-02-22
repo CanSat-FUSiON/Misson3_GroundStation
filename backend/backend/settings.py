@@ -39,8 +39,8 @@ ALLOWED_HOSTS = [
     "cmd-moon.space",
     "ase.cmd-moon.space",
     "fusion.cmd-moon.space",
-    '0488-60-74-77-131.ngrok.io',  # <- frontendサーバーのngrokURLをここに追加
-    '6bd4-60-74-77-131.ngrok.io',  # <- backendサーバーのngrokURLをここに追加
+    '41d1-60-74-77-131.ngrok.io',  # <- frontendサーバーのngrokURLをここに追加
+    '8ea2-60-74-77-131.ngrok.io',  # <- backendサーバーのngrokURLをここに追加
 ]
 
 CSRF_TRUSTED_ORIGINS = [

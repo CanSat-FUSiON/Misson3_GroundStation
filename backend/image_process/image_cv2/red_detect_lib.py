@@ -13,7 +13,11 @@ def main(sampleimage):
     Rotation = rot_get(center_get(sampleimage),size_get(sampleimage),4.8,4.5)
     Occupancy = occ_get(sampleimage)
     
-    return [Rotation, Occupancy]
+    if Rotation != 'cannot find':
+        return [Rotation, Occupancy]
+    
+    else:
+        return [0,0]
 
 
 
@@ -75,7 +79,6 @@ def hsvExtraction(image, hsvLower, hsvUpper):
 
 # 抽出画像データを取得する関数
 def red_masks_get(sampleimage):
-    image = cv2.imread(sampleimage) # ファイル読み込み
 
     # HSVでの色抽出
     hsvLower_0 = np.array([0, 60, 50])    # 抽出する色の下限0(赤の抽出のため二つにわけて合成が必要)
@@ -83,8 +86,8 @@ def red_masks_get(sampleimage):
     hsvUpper_0 = np.array([10, 255, 255])    # 抽出する色の上限0(赤の抽出のため二つにわけて合成が必要)
     hsvUpper_1 = np.array([179, 255, 255])   # 抽出する色の上限1(赤の抽出のため二つにわけて合成が必要)
 
-    hsvResult_0 = hsvExtraction(image, hsvLower_0, hsvUpper_0)  # 画像0を作成
-    hsvResult_1 = hsvExtraction(image, hsvLower_1, hsvUpper_1)  # 画像1を作成
+    hsvResult_0 = hsvExtraction(sampleimage, hsvLower_0, hsvUpper_0)  # 画像0を作成
+    hsvResult_1 = hsvExtraction(sampleimage, hsvLower_1, hsvUpper_1)  # 画像1を作成
 
     hsvResult = hsvResult_0 | hsvResult_1  # 画像を統合
     
@@ -120,16 +123,21 @@ def occ_get(sampleimage):
 # 重心座標を求める関数
 def center_get(sampleimage):
     mu = cv2.moments(binary_get(sampleimage), False)  # 重心関数作成
-    x,y= int(mu["m10"]/mu["m00"]) , int(mu["m01"]/mu["m00"])  # 重心座標の作成
+    
+    if mu["m00"] != 0:
+        x,y= int(mu["m10"]/mu["m00"]) , int(mu["m01"]/mu["m00"])  # 重心座標の作成
+        return [x,y]  # 重心座標を返り値に設定
+    
+    else:
+        return 'cannot find'
 
-    return [x,y]  # 重心座標を返り値に設定
+
 
 
 
 # 画像のサイズの取得
 def size_get(sampleimage):
-    img = cv2.imread(sampleimage)
-    height, width, channel = img.shape
+    height, width, channel = sampleimage.shape
     return [width,height]
 
 
@@ -137,11 +145,15 @@ def size_get(sampleimage):
 # 回転角を取得(center:重心座標, size:画像サイズ, f_mm:焦点距離[mm], diagonal_mm:撮像素子の対角線[mm])
 def rot_get(center, size, f_mm, diagonal_mm):  
 
-    width_mm = diagonal_mm * size[0]/np.sqrt(size[0]*size[0] + size[1]*size[1])
-    sita_rad = np.arctan((width_mm * (size[0] / 2 - center[0]) / size[0]) / f_mm)  # 回転角θ[rad]を導出
-    sita = 180*sita_rad/np.pi
+    if center != 'cannot find':
+        width_mm = diagonal_mm * size[0]/np.sqrt(size[0]*size[0] + size[1]*size[1])
+        sita_rad = np.arctan((width_mm * (size[0] / 2 - center[0]) / size[0]) / f_mm)  # 回転角θ[rad]を導出
+        sita = 180*sita_rad/np.pi
 
-    return sita
+        return sita
+    
+    else:
+        return 'cannot find'
 
 
 
