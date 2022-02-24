@@ -14,8 +14,8 @@ from .serializers import ImageTestSerializer, EnvironmentSerializer
 from .image_cv2.red_detect_lib import main
 
 
-IP_address_cam = 'http://132c-2400-2200-1ac-f39b-4deb-98f1-d05c-e44a.ngrok.io'
-IP_address_wroom = 'http://72f6-2400-2200-1ac-f39b-4deb-98f1-d05c-e44a.ngrok.io'
+IP_address_cam = 'http://192.168.3.13'
+IP_address_wroom = 'http://192.168.3.15'
 
 
 class ImageGetterAPIView(APIView):

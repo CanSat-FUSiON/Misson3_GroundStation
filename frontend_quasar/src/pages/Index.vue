@@ -42,7 +42,7 @@
               class="control-button"
               rounded
               label="LEFT"
-              @click="control('left')"
+              @click="control('left', time)"
             />
             <q-btn
               class="control-button"
@@ -63,7 +63,7 @@
               </span>
             </label>
             <div class="input-container input-distance">
-              <input type="number" required step="1" name="time" id="input-time" class="input-normal" placeholder="time" />
+              <input ref = "time" type="number" required step="1" name="time" id="input-time" class="input-normal" placeholder="time" />
             </div>
           </div>
           <button id="toggle-stream" @click="toggle_stream">Start Stream</button>
@@ -82,7 +82,7 @@ import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
 const BACKEND_URL = 'http://2d5e-60-74-77-131.ngrok.io';  //localhost:8000のngrokURL
-var streamUrl = 'http://4ccb-2400-2200-1ac-f39b-4deb-98f1-d05c-e44a.ngrok.io';
+var streamUrl = 'http://192.168.3.13:81';
 
 
 const stopStream = () => {
@@ -107,14 +107,16 @@ export default defineComponent({
 
   setup() {
     const control_status_message = ref('');
+    const time = ref<HTMLInputElement| null>(null)
 
     return {
+      time,
       control_status_message,
       async control(direction: string) {
         console.log(`Sending ${direction} message...`);
 
         const res = await axios
-          .get(`${BACKEND_URL}/fusion/control/${direction}/`)
+          .get(`${BACKEND_URL}/fusion/control/${direction}/${time.value?.value as string}`)
           .catch(async (err) => {
             control_status_message.value =
               'Something went wrong. Please see console for details.';

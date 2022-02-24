@@ -5,13 +5,12 @@ from rest_framework.response import Response
 from rest_framework import status
 import requests
 
-IP_address_cam = 'http://132c-2400-2200-1ac-f39b-4deb-98f1-d05c-e44a.ngrok.io'
-IP_address_wroom = ' http://72f6-2400-2200-1ac-f39b-4deb-98f1-d05c-e44a.ngrok.io'
+IP_address_wroom = 'http://192.168.3.15'
 
 
 class rightAPIView(APIView):
-    def get(self, request: Request) -> Response:
-        r = requests.get(IP_address_wroom + '/right')
+    def get(self, request: Request, time) -> Response:
+        r = requests.get(IP_address_wroom + '/right' + '?ms=' + str(time))
         if r.status_code==200:
             return Response()
         else:
@@ -19,8 +18,8 @@ class rightAPIView(APIView):
 
 
 class leftAPIView(APIView):
-    def get(self, request: Request) -> Response:
-        r = requests.get(IP_address_wroom + '/left') 
+    def get(self, request: Request, time) -> Response:
+        r = requests.get(IP_address_wroom + '/left' + '?ms=' + str(time)) 
         if r.status_code==200:
             return Response()
         else:
@@ -28,8 +27,8 @@ class leftAPIView(APIView):
 
 
 class forwardAPIView(APIView):
-    def get(self, request: Request) -> Response:
-        r = requests.get(IP_address_wroom + '/forward')
+    def get(self, request: Request, time) -> Response:
+        r = requests.get(IP_address_wroom + '/forward' + '?ms=' + str(time))
         if r.status_code==200:
             return Response()
         else:
@@ -37,8 +36,8 @@ class forwardAPIView(APIView):
 
 
 class backAPIView(APIView):
-    def get(self, request: Request) -> Response:
-        r = requests.get(IP_address_wroom + '/back')
+    def get(self, request: Request, time) -> Response:
+        r = requests.get(IP_address_wroom + '/back' + '?ms=' + str(time))
         if r.status_code==200:
             return Response()
         else:
