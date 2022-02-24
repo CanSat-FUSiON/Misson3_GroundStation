@@ -14,8 +14,8 @@ from .serializers import ImageTestSerializer, EnvironmentSerializer
 from .image_cv2.red_detect_lib import main
 
 
-IP_address_cam = 'http://192.168.3.13'
-IP_address_wroom = 'http://192.168.3.15'
+IP_address_cam = 'http://132c-2400-2200-1ac-f39b-4deb-98f1-d05c-e44a.ngrok.io'
+IP_address_wroom = 'http://72f6-2400-2200-1ac-f39b-4deb-98f1-d05c-e44a.ngrok.io'
 
 
 class ImageGetterAPIView(APIView):
@@ -62,39 +62,43 @@ class EnvironmentAPIView(APIView):
 
 
 def loop():
-    occ = 0.006
     
-    while 0.002 < occ:
-        print('success!')
-        r = requests.get(IP_address_cam + '/capture')
-
-        img_array = cv2.imdecode(np.array(bytearray(r.content), dtype=np.uint8), -1)  # cv2で読める形に変換
-
-        control_data = main(sampleimage=img_array)  # 占有率と角度の計算
-
-        ang = round(control_data[0])  # 扱いやすくするために整数に変換
-        occ = control_data[1]
-        
-        if occ > 0.3:
-            break
-        
-        else:
-            r_2 = requests.get(IP_address_wroom + '/image_automatic' + '?a=' + str(ang))
+    judgment = 0
     
-    else:
-        while occ < 0.002:
-            r_3 = requests.get(IP_address_wroom + '/right_little')
-            r_4 = requests.get(IP_address_cam + '/capture')
-            img_array_2 = cv2.imdecode(np.array(bytearray(r_4.content), dtype=np.uint8), -1)  # cv2で読める形に変換
-            control_data_2 = main(sampleimage=img_array_2)  # 占有率と角度の計算
-            occ = control_data_2[1]
-        
-        else:
-            loop()
+    occ = 0.003
+    
+    while judgment == 0:
+        while 0.002 < occ:
+            print('find!')
+            r = requests.get(IP_address_cam + '/capture')
+
+            img_array = cv2.imdecode(np.array(bytearray(r.content), dtype=np.uint8), -1)  # cv2で読める形に変換
+
+            control_data = main(sampleimage=img_array)  # 占有率と角度の計算
+
+            ang = round(control_data[0])  # 扱いやすくするために整数に変換
+            occ = control_data[1]
             
+            if occ > 0.3:
+                print('goal!!')
+                judgment = 1
+            
+            else:
+                r_2 = requests.get(IP_address_wroom + '/image_automatic' + '?a=' + str(ang))
+        
+        else:
+            while occ < 0.002:
+                print('cannot find...')
+                r_3 = requests.get(IP_address_wroom + '/right_little')
+                r_4 = requests.get(IP_address_cam + '/capture')
+                img_array_2 = cv2.imdecode(np.array(bytearray(r_4.content), dtype=np.uint8), -1)  # cv2で読める形に変換
+                control_data_2 = main(sampleimage=img_array_2)  # 占有率と角度の計算
+                occ = control_data_2[1]
+
+        
 
 
-t = 0  # グローバルな値として定義
+t = multiprocessing.Process(target = loop)  # グローバルな値として定義
 
 
 class StartloopAPIView(APIView):
