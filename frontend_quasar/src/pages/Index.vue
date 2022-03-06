@@ -47,14 +47,20 @@
             <q-btn
               class="control-button"
               rounded
-              label="IMAGE PROCESS"
-              @click="imageprocess()"
+              label="FIRE"
+              @click="control('fire', time)"
             />
             <q-btn
               class="control-button"
               rounded
-              label="GPS START"
-              @click="control('gps')"
+              label="IMAGE PROCESS"
+              @click="imageprocess_s()"
+            />
+            <q-btn
+              class="control-button"
+              rounded
+              label="IMAGE PROCESS STOP"
+              @click="imageprocess_e()"
             />
             <label for="time">
               時間
@@ -81,7 +87,7 @@ import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
-const BACKEND_URL = 'http://2d5e-60-74-77-131.ngrok.io';  //localhost:8000のngrokURL
+const BACKEND_URL = 'http://127.0.0.1:8000';  //localhost:8000のngrokURL
 var streamUrl = 'http://192.168.3.13:81';
 
 
@@ -116,7 +122,7 @@ export default defineComponent({
         console.log(`Sending ${direction} message...`);
 
         const res = await axios
-          .get(`${BACKEND_URL}/fusion/control/${direction}/${time.value?.value as string}`)
+          .get(`${BACKEND_URL}/fusion/control/${direction}/${time.value?.value as string}/`)
           .catch(async (err) => {
             control_status_message.value =
               'Something went wrong. Please see console for details.';
@@ -147,10 +153,14 @@ export default defineComponent({
           startStream()
         }
       },
-      imageprocess(){
+      imageprocess_s(){
         const res = axios
-          .get(`${BACKEND_URL}/fusion/api/v1/start`)
+          .get(`${BACKEND_URL}/fusion/api/v1/start/`)
       },
+      imageprocess_e(){
+        const res = axios
+          .get(`${BACKEND_URL}/fusion/api/v1/end/`)
+      }
     };
   },
 });

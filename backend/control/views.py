@@ -98,6 +98,27 @@ class back0APIView(APIView):
 #             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+class fireAPIView(APIView):
+    def get(self, request: Request, time) -> Response:
+        r = requests.get(IP_address_wroom + '/fire')
+        if r.status_code==200:
+            return Response()
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        
+
+class fire0APIView(APIView):
+    def get(self, request: Request) -> Response:
+        r = requests.get(IP_address_wroom + '/fire')
+        if r.status_code==200:
+            return Response()
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+
+
+
 class getdataAPIView(APIView):
     def get(self, request: Request) -> Response:
         r = requests.get(IP_address_wroom + '/getdata')

@@ -1,3 +1,4 @@
+from tracemalloc import stop
 from typing import cast
 from rest_framework.views import APIView
 from rest_framework.request import Request
@@ -60,15 +61,14 @@ class EnvironmentAPIView(APIView):
 
 
 
-
 def loop():
     
     judgment = 0
-    
-    occ = 0.003
+    occ = 0.03
     
     while judgment == 0:
-        while 0.002 < occ:
+        while occ > 0.01:
+            
             print('find!')
             r = requests.get(IP_address_cam + '/capture')
 
@@ -76,18 +76,19 @@ def loop():
 
             control_data = main(sampleimage=img_array)  # 占有率と角度の計算
 
-            ang = round(control_data[0])  # 扱いやすくするために整数に変換
+            ang = -round(control_data[0])  # 扱いやすくするために整数に変換
             occ = control_data[1]
             
             if occ > 0.3:
                 print('goal!!')
                 judgment = 1
+                break
             
             else:
                 r_2 = requests.get(IP_address_wroom + '/image_automatic' + '?a=' + str(ang))
         
         else:
-            while occ < 0.002:
+            while occ < 0.01:
                 print('cannot find...')
                 r_3 = requests.get(IP_address_wroom + '/right_little')
                 r_4 = requests.get(IP_address_cam + '/capture')
@@ -104,6 +105,7 @@ t = multiprocessing.Process(target = loop)  # グローバルな値として定�
 class StartloopAPIView(APIView):
     def get(self, request: Request) -> Response:
         
+        global t
         t = multiprocessing.Process(target = loop)
         t.start()
         
@@ -113,6 +115,7 @@ class StartloopAPIView(APIView):
 class EndloopAPIView(APIView):
     def get(self, request: Request) -> Response:
         
+        global t
         t.terminate()
 
         return Response()
