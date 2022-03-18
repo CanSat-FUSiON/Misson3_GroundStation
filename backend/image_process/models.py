@@ -3,8 +3,10 @@ from django.db import models
 
 
 class ImageTestModel(models.Model):
-    class Meta:
-        db_table = "image_test"
+    Rotation = models.FloatField()
+    Occupancy = models.FloatField()
+    created_on = models.DateTimeField(auto_now_add=True)
 
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    image = models.ImageField()
+    def __str__(self):
+        return str(self.created_on)
+

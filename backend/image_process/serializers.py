@@ -9,5 +9,7 @@ class ImageTestSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ImageCaptureSerializer(serializers.Serializer):
-    pass
+class EnvironmentSerializer(serializers.Serializer):
+
+    temparature = serializers.DecimalField(max_digits=10, decimal_places=5)
+    accelaration_x = serializers.DecimalField(max_digits=5, decimal_places=2)
