@@ -256,10 +256,8 @@ export default defineComponent({
             `${ESP32URL.value}/api/v1/image/end/`);
       },
       stopautomatic() {
-        const res = axios.get(
-          `${ESP32URL.value}/api/v1/image/end/?cap=${CaptureURL.value}`
-        );
-      }
+        const res = axios.get(`${ESP32URL.value}/stopautomatic`);
+      },
     };
   },
 });
