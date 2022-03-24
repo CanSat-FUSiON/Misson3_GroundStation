@@ -228,9 +228,7 @@ export default defineComponent({
         const res = axios.get(`${process.env.BACKENDURL}/api/v1/image/end/`);
       },
       stopautomatic() {
-        const res = axios.get(
-          `${process.env.BACKENDURL}/api/v1/image/end/?cap=${CaptureURL.value}`
-        );
+        const res = axios.get(`${ESP32URL.value}/stopautomatic/`);
       },
     };
   },
