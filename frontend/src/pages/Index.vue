@@ -18,7 +18,24 @@
           <h3 class="text-h6 view-container-header">Controller</h3>
 
           <q-separator style="margin: 10px -16px 32px -16px" />
+          <p>
+            Please enter URLs here : {{ message }}
+          </p>
 
+          <div class="row q-gutter-md btn-actions">
+            <div class="input-container input-comURL">
+              <input ref = "URL" type="string" name="ESP-WROOM-32" id="input-URL" class="input-normal" placeholder="ComputerのURL" />
+            </div>
+            <div class="input-container input-camURL">
+              <input ref = "URL" type="string" name="ESP32CAM" id="input-URL" class="input-normal" placeholder="CaptureのURL" />
+            </div>
+            <div class="input-container input-streamURL">
+              <input ref = "URL" type="string" name="CAM-stream" id="input-URL" class="input-normal" placeholder="StreamのURL" />
+            </div>
+          </div>
+          <p>
+            Please control CanSat with this control panel : {{ message }}
+          </p>
           <div class="row q-gutter-md btn-actions">
             <q-btn
               class="control-button"
@@ -42,13 +59,7 @@
               class="control-button"
               rounded
               label="LEFT"
-              @click="control('left', time)"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="FIRE"
-              @click="control('fire', time)"
+              @click="control('left')"
             />
             <q-btn
               class="control-button"
@@ -62,16 +73,23 @@
               label="IMAGE PROCESS STOP"
               @click="imageprocess_e()"
             />
-            <label for="time">
-              時間
-              <span class="text-caption"> 
-              （単位: ms） 
-              </span>
-            </label>
+          </div>
+          <p>
+            If you want to set the running time, please enter it here : {{ message }}
+          </p>
+          <div class="row q-gutter-md btn-actions">
             <div class="input-container input-distance">
               <input ref = "time" type="number" required step="1" name="time" id="input-time" class="input-normal" placeholder="time" />
             </div>
+            <label for="time">
+              <span class="text-caption"> 
+              （ms） 
+              </span>
+            </label>
           </div>
+          <p>
+            If you want to watch the stream, please click here : {{ message }}
+          </p>
           <button id="toggle-stream" @click="toggle_stream">Start Stream</button>
           <div class="text-caption">
             {{ control_status_message }}
