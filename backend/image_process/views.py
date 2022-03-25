@@ -1,5 +1,6 @@
 from tracemalloc import stop
 from typing import cast
+import requests
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -38,6 +39,7 @@ from .image_cv2.red_detect_lib import main
 #         return Response()
 
 
+
 class HealthAPIView(APIView):
     def get(self, request: Request) -> Response:
         return Response()
@@ -60,7 +62,6 @@ class EnvironmentAPIView(APIView):
 
 capture = ""
 esp32 = ""
-
 
 def loop():
 
@@ -93,8 +94,10 @@ def loop():
         else:
             while occ < 0.01:
                 print("cannot find...")
+
                 r_3 = requests.get(esp32 + "/right_little")
                 r_4 = requests.get(capture + "/capture")
+
                 img_array_2 = cv2.imdecode(
                     np.array(bytearray(r_4.content), dtype=np.uint8), -1
                 )  # cv2で読める形に変換
@@ -107,7 +110,7 @@ t = multiprocessing.Process(target=loop)  # グローバルな値として定義
 
 class StartloopAPIView(APIView):
     def get(self, request: Request) -> Response:
-
+      
         global capture
         global esp32
         if "cap" in request.GET:
