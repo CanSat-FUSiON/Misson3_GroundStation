@@ -56,15 +56,22 @@
             </div>
           </div>
           <div class="row q-gutter-md btn-actions">
-            <q-banner rounded class="bg-yellow-8 text-white">
+            <q-banner rounded class="bg-orange-8 text-white">
               If you want to stop automatic, please click here :
               <template v-slot:action>
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="red"
                   class="control-button"
-                  rounded
+                  label="START AUTOMATIC"
+                  @click="startautomatic()"
+                />
+                <q-btn
+                  push
+                  color="white"
+                  text-color="red"
+                  class="control-button"
                   label="STOP AUTOMATIC"
                   @click="stopautomatic()"
                 />
@@ -77,29 +84,29 @@
               <template v-slot:action>
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="FORWARD"
                   @click="control('forward')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="BACK"
                   @click="control('back')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="RIGHT"
                   @click="control('right')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="LEFT"
                   @click="control('left')"
                 />
@@ -132,28 +139,28 @@
               <template v-slot:action>
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="IMAGE PROCESS"
                   @click="imageprocess_s()"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="IMAGE PROCESS STOP"
                   @click="imageprocess_e()"
                 />
               </template>
             </q-banner>
           </div>
-          <q-banner rounded class="bg-red-8 text-white">
+          <q-banner rounded class="bg-blue-8 text-white">
             If you want to watch the stream, please click here :
             <template v-slot:action>
               <q-btn
                 push
-                color="primary"
-                text-color="white"
+                color="white"
+                text-color="primary"
                 id="toggle-stream"
                 @click="toggle_stream"
               >
@@ -256,8 +263,11 @@ export default defineComponent({
       imageprocess_e() {
         const res = axios.get(`${process.env.BACKENDURL}/api/v1/image/end/`);
       },
+      startautomatic() {
+        const res = axios.get(`${ESP32URL.value}/start`);
+      },
       stopautomatic() {
-        const res = axios.get(`${ESP32URL.value}/stopautomatic/`);
+        const res = axios.get(`${ESP32URL.value}/end`);
       },
     };
   },
