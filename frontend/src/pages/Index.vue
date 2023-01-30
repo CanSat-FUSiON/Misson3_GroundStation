@@ -48,7 +48,7 @@
                 outlined
                 v-model="StreamURL"
                 type="string"
-                name="CAM-stream"
+                name="CAM-strea"
                 id="input-URL"
                 class="input-normal"
                 label="Stream's URL"
