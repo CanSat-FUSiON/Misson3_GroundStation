@@ -25,7 +25,7 @@
               <q-input
                 outlined
                 v-model="ESP32URL"
-                type="string"
+                type="text"
                 name="ESP-WROOM-32"
                 id="input-URL"
                 class="input-normal"
@@ -36,7 +36,7 @@
               <q-input
                 outlined
                 v-model="CaptureURL"
-                type="string"
+                type="text"
                 name="ESP32CAM"
                 id="input-URL"
                 class="input-normal"
@@ -47,7 +47,7 @@
               <q-input
                 outlined
                 v-model="StreamURL"
-                type="string"
+                type="text"
                 name="CAM-stream"
                 id="input-URL"
                 class="input-normal"
