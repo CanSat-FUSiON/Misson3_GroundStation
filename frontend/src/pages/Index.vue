@@ -64,6 +64,12 @@
             <q-btn
               class="control-button"
               rounded
+              label="FIRE"
+              @click="control('fire')"
+            />
+            <q-btn
+              class="control-button"
+              rounded
               label="IMAGE PROCESS"
               @click="imageprocess_s()"
             />
@@ -82,8 +88,8 @@
               <input ref = "time" type="number" required step="1" name="time" id="input-time" class="input-normal" placeholder="time" />
             </div>
             <label for="time">
-              <span class="text-caption"> 
-              （ms） 
+              <span class="text-caption">
+              （ms）
               </span>
             </label>
           </div>
