@@ -64,8 +64,8 @@
             />
             <label for="time">
               時間
-              <span class="text-caption"> 
-              （単位: ms） 
+              <span class="text-caption">
+              （単位: ms）
               </span>
             </label>
             <div class="input-container input-distance">
@@ -87,8 +87,8 @@ import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
-const BACKEND_URL = 'http://127.0.0.1:8000';  //localhost:8000のngrokURL
-var streamUrl = 'http://192.168.3.13:81';
+const BACKEND_URL = 'http://192.168.11.11';  //localhost:8000のngrokURL
+var streamUrl = 'http://192.168.11.12:81';
 
 
 const stopStream = () => {
@@ -127,7 +127,7 @@ export default defineComponent({
             control_status_message.value =
               'Something went wrong. Please see console for details.';
             console.log(err);
-            await sleep(3000);
+            await sleep(10000);
             control_status_message.value = '';
           });
 
