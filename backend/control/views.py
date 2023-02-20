@@ -6,7 +6,7 @@ from rest_framework import status
 import requests
 
 
-IP_address_wroom = 'http://192.168.3.15'
+IP_address_wroom = 'http://192.168.11.11'
 
 class rightAPIView(APIView):
     def get(self, request: Request, time) -> Response:
@@ -15,7 +15,7 @@ class rightAPIView(APIView):
             return Response()
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        
+
 
 class right0APIView(APIView):
     def get(self, request: Request) -> Response:
@@ -28,7 +28,7 @@ class right0APIView(APIView):
 
 class leftAPIView(APIView):
     def get(self, request: Request, time) -> Response:
-        r = requests.get(IP_address_wroom + '/left' + '?ms=' + str(time)) 
+        r = requests.get(IP_address_wroom + '/left' + '?ms=' + str(time))
         if r.status_code==200:
             return Response()
         else:
@@ -37,7 +37,7 @@ class leftAPIView(APIView):
 
 class left0APIView(APIView):
     def get(self, request: Request) -> Response:
-        r = requests.get(IP_address_wroom + '/left') 
+        r = requests.get(IP_address_wroom + '/left')
         if r.status_code==200:
             return Response()
         else:
@@ -51,7 +51,7 @@ class forwardAPIView(APIView):
             return Response()
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        
+
 
 class forward0APIView(APIView):
     def get(self, request: Request) -> Response:
@@ -69,8 +69,8 @@ class backAPIView(APIView):
             return Response()
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        
-        
+
+
 class back0APIView(APIView):
     def get(self, request: Request) -> Response:
         r = requests.get(IP_address_wroom + '/back')
@@ -87,7 +87,7 @@ class back0APIView(APIView):
 #             return Response()
 #         else:
 #             return Response(status=status.HTTP_404_NOT_FOUND)
-        
+
 
 # class gps0APIView(APIView):
 #     def get(self, request: Request) -> Response:
@@ -105,8 +105,8 @@ class fireAPIView(APIView):
             return Response()
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        
-        
+
+
 
 class fire0APIView(APIView):
     def get(self, request: Request) -> Response:
@@ -115,7 +115,7 @@ class fire0APIView(APIView):
             return Response()
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        
+
 
 
 

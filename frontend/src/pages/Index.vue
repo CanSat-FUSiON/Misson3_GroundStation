@@ -111,7 +111,7 @@ import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
-const BACKEND_URL = 'http://127.0.0.1:8000';  //localhost:8000のngrokURL
+const BACKEND_URL = 'http://192.168.11.11';  //localhost:8000のngrokURL
 var streamUrl = 'http://192.168.3.13:81';
 
 
