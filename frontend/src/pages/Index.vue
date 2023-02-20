@@ -27,7 +27,7 @@
               <q-input
               outlined
               v-model="ESP32URL"
-              type="string"
+              type="text"
               name="ESP-WROOM-32"
               id="input-URL"
               class="input-normal"
@@ -39,7 +39,7 @@
               <q-input
               outlined
               v-model="CaptureURL"
-              type="string"
+              type="text"
               name="ESP32CAM"
               id="input-URL"
               class="input-normal"
@@ -51,7 +51,7 @@
               <q-input
               outlined
               v-model="StreamURL"
-              type="string"
+              type="text"
               name="CAM-stream"
               id="input-URL"
               class="input-normal"
@@ -184,12 +184,18 @@ export default defineComponent({
     const ESP32URL = ref('');
     const CaptureURL = ref('');
 
-    const stopStream = () => {
+    const startStream = () => {
       const streamButton = document.getElementById('toggle-stream');
       const view = document.getElementById('stream') as HTMLImageElement;
       view.src = '${StreamURL.value}/stream';
       streamButton!.innerHTML = 'Stop Stream';
     };
+
+    const stopStream = () => {
+      const streamButton = document.getElementById('toggle-stream');
+      window.stop();
+      streamButton!.innerHTML = 'start Stream';
+    }
 
     return {
       time,
@@ -231,9 +237,10 @@ export default defineComponent({
         const streamButton = document.getElementById('toggle-stream');
         const streamEnabled = streamButton!.innerHTML === 'Stop Stream';
         if (streamEnabled) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           stopStream();
         } else {
-
+          startStream();
         }
       },
       imageprocess_s(){
