@@ -202,7 +202,7 @@ export default defineComponent({
 
         const res = await axios
           .get(
-            `${process.env.BACKENDURL}/api/v1/control/${direction}/${
+            `${ESP32URL.value}/api/v1/control/${direction}/${
               time.value?.value as string
             }/?esp=${ESP32URL.value}`
             )
@@ -239,18 +239,18 @@ export default defineComponent({
       imageprocess_s(){
         const res = axios
           .get(
-            `${process.env.BACKENDURL}/api/v1/image/start/?cap=${
+            `${ESP32URL.value}/api/v1/image/start/?cap=${
               CaptureURL.value}&esp=${ESP32URL.value}`
               );
       },
       imageprocess_e(){
         const res = axios
           .get(
-            `${process.env.BACKENDURL}/api/v1/image/end/`);
+            `${ESP32URL.value}/api/v1/image/end/`);
       },
       stopautomatic() {
         const res = axios.get(
-          `${process.env.BACKENDURL}/api/v1/image/end/?cap=${CaptureURL.value}`
+          `${ESP32URL.value}/api/v1/image/end/?cap=${CaptureURL.value}`
         );
       }
     };
