@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("fusion/admin/", admin.site.urls),
-    path("fusion/api/v1/", include("image_process.urls")),
-    path("fusion/control/",include("control.urls")),
+    path("admin/", admin.site.urls),
+    path("api/v1/image/", include("image_process.urls")),
+    path("ap1/v1/control/", include("control.urls")),
 ]
