@@ -63,13 +63,13 @@
           </p>
           <div class="row q-gutter-md btn-action">
             <q-btn
-            class="control-buttun"
+            class="control-button"
             rounded
             label="STOP AUTOMATIC"
             @click="stopautomatic()"
             />
           </div>
-          <p>Please control CanSat eith control panel : {{ message }}</p>
+          <p>Please control CanSat with control panel : {{ message }}</p>
           <div class="row q-gutter-md btn-actions">
             <q-btn
               class="control-button"
@@ -179,7 +179,7 @@ export default defineComponent({
 
   setup() {
     const control_status_message = ref('');
-    const time = ref<HTMLInputElement | null>(null)
+    const time = ref<HTMLInputElement | null>(null);
     const StreamURL = ref('');
     const ESP32URL = ref('');
     const CaptureURL = ref('');
@@ -187,7 +187,7 @@ export default defineComponent({
     const startStream = () => {
       const streamButton = document.getElementById('toggle-stream');
       const view = document.getElementById('stream') as HTMLImageElement;
-      view.src = '${StreamURL.value}/stream';
+      view.src = `${StreamURL.value}/stream`;
       streamButton!.innerHTML = 'Stop Stream';
     };
 
