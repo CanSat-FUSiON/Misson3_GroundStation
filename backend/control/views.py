@@ -6,14 +6,13 @@ from rest_framework import status
 import requests
 
 
-# IP_address_wroom = "http://192.168.3.15"
+#IP_address_wroom = 'http://192.168.11.11'
 
 
 def getURL(request):
-    if "esp" in request.GET:
-        esp32URL = request.GET.get("esp")
-        return esp32URL
-
+  if "esp" in request.GET:
+    esp32URL = request.GET.get("esp")
+    return esp32URL
 
 class rightAPIView(APIView):
     def get(self, request: Request, time) -> Response:
@@ -53,7 +52,6 @@ class left0APIView(APIView):
 
 class forwardAPIView(APIView):
     def get(self, request: Request, time) -> Response:
-        print(getURL(request))
         r = requests.get(getURL(request) + "/forward" + "?ms=" + str(time))
         if r.status_code == 200:
             return Response()
@@ -106,31 +104,35 @@ class back0APIView(APIView):
 #             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-# class fireAPIView(APIView):
-#     def get(self, request: Request, time) -> Response:
-#         r = requests.get(IP_address_wroom + "/fire")
-#         if r.status_code == 200:
-#             return Response()
-#         else:
-#             return Response(status=status.HTTP_404_NOT_FOUND)
+class fireAPIView(APIView):
+    def get(self, request: Request, time) -> Response:
+        r = requests.get(getURL(request) + "/fire")
+        if r.status_code == 200:
+            return Response()
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-# class fire0APIView(APIView):
-#     def get(self, request: Request) -> Response:
-#         r = requests.get(IP_address_wroom + "/fire")
-#         if r.status_code == 200:
-#             return Response()
-#         else:
-#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+class fire0APIView(APIView):
+    def get(self, request: Request) -> Response:
+        r = requests.get(getURL(request) + "/fire")
+        if r.status_code == 200:
+            return Response()
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-# class getdataAPIView(APIView):
-#     def get(self, request: Request) -> Response:
-#         r = requests.get(IP_address_wroom + "/getdata")
-#         if r.status_code == 200:
-#             return Response()
-#         else:
-#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class getdataAPIView(APIView):
+    def get(self, request: Request) -> Response:
+        r = requests.get(getURL(request) + "/getdata")
+        if r.status_code == 200:
+            return Response()
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 
 # Create your views here.
