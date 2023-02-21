@@ -21,22 +21,13 @@
           <p>Please enter URLs here : {{ message }}</p>
 
           <div class="row q-gutter-md btn-actions">
-            <div class="input-container input-comURL">
-              <q-input
-                outlined
-                v-model="ESP32URL"
-                type="string"
-                name="ESP-WROOM-32"
-                id="input-URL"
-                class="input-normal"
-                label="Computer's URL"
-              />
+
             </div>
             <div class="input-container input-camURL">
               <q-input
                 outlined
                 v-model="CaptureURL"
-                type="string"
+                type="text"
                 name="ESP32CAM"
                 id="input-URL"
                 class="input-normal"
@@ -47,7 +38,7 @@
               <q-input
                 outlined
                 v-model="StreamURL"
-                type="string"
+                type="text"
                 name="CAM-stream"
                 id="input-URL"
                 class="input-normal"
@@ -182,7 +173,7 @@ import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
-// var streamUrl = '******';
+
 
 const sleep = (msec: number) =>
   new Promise((resolve) => setTimeout(resolve, msec));
@@ -229,7 +220,7 @@ export default defineComponent({
             control_status_message.value =
               'Something went wrong. Please see console for details.';
             console.log(err);
-            await sleep(3000);
+            await sleep(10000);
             control_status_message.value = '';
           });
 
