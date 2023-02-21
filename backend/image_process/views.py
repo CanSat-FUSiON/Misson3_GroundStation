@@ -16,27 +16,28 @@ from .serializers import ImageTestSerializer, EnvironmentSerializer
 from .image_cv2.red_detect_lib import main
 
 
-IP_address_cam = "http://192.168.3.13"
-IP_address_wroom = "http://192.168.3.15"
+# IP_address_cam = "http://192.168.3.13"
+# IP_address_wroom = "http://192.168.3.15"
 
 
-class ImageGetterAPIView(APIView):
-    def get(self, request: Request) -> Response:
-        print("Hello")
-        r = requests.get(IP_address_cam + "/capture")
-        img_data = r.content  # バイト列に変換
+# class ImageGetterAPIView(APIView):
+#     def get(self, request: Request) -> Response:
+#         print("Hello")
+#         r = requests.get(IP_address_cam + "/capture")
+#         img_data = r.content  # バイト列に変換
 
-        img_array = cv2.imdecode(np.array(bytearray(r.content), dtype=np.uint8), -1)
+#         img_array = cv2.imdecode(np.array(bytearray(r.content), dtype=np.uint8), -1)
 
-        control_data = main(sampleimage=img_array)
+#         control_data = main(sampleimage=img_array)
 
-        ang = round(control_data[0])
-        occ = control_data[1]
+#         ang = round(control_data[0])
+#         occ = control_data[1]
 
-        if occ <= 0.3:
-            r_2 = requests.get(IP_address_wroom + "/image_automatic" + "?a=" + str(ang))
+#         if occ <= 0.3:
+#             r_2 = requests.get(IP_address_wroom + "/image_automatic" + "?a=" + str(ang))
 
-        return Response()
+#         return Response()
+
 
 
 class HealthAPIView(APIView):
@@ -59,6 +60,9 @@ class EnvironmentAPIView(APIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+capture = ""
+esp32 = ""
+
 def loop():
 
     judgment = 0
@@ -68,7 +72,7 @@ def loop():
         while occ > 0.01:
 
             print("find!")
-            r = requests.get(IP_address_cam + "/capture")
+            r = requests.get(capture + "/capture")
 
             img_array = cv2.imdecode(
                 np.array(bytearray(r.content), dtype=np.uint8), -1
@@ -85,15 +89,15 @@ def loop():
                 break
 
             else:
-                r_2 = requests.get(
-                    IP_address_wroom + "/image_automatic" + "?a=" + str(ang)
-                )
+                r_2 = requests.get(esp32 + "/image_automatic" + "?a=" + str(ang))
 
         else:
             while occ < 0.01:
                 print("cannot find...")
-                r_3 = requests.get(IP_address_wroom + "/right_little")
-                r_4 = requests.get(IP_address_cam + "/capture")
+
+                r_3 = requests.get(esp32 + "/right_little")
+                r_4 = requests.get(capture + "/capture")
+
                 img_array_2 = cv2.imdecode(
                     np.array(bytearray(r_4.content), dtype=np.uint8), -1
                 )  # cv2で読める形に変換
@@ -106,7 +110,13 @@ t = multiprocessing.Process(target=loop)  # グローバルな値として定義
 
 class StartloopAPIView(APIView):
     def get(self, request: Request) -> Response:
-
+      
+        global capture
+        global esp32
+        if "cap" in request.GET:
+            capture = request.GET.get("cap")
+        if "esp" in request.GET:
+            esp32 = request.GET.get("esp")
         global t
         t = multiprocessing.Process(target=loop)
         t.start()

@@ -18,64 +18,150 @@
           <h3 class="text-h6 view-container-header">Controller</h3>
 
           <q-separator style="margin: 10px -16px 32px -16px" />
+          <p>Please enter URLs here : {{ message }}</p>
 
           <div class="row q-gutter-md btn-actions">
-            <q-btn
-              class="control-button"
-              rounded
-              label="FORWARD"
-              @click="control('forward')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="BACK"
-              @click="control('back')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="RIGHT"
-              @click="control('right')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="LEFT"
-              @click="control('left', time)"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="FIRE"
-              @click="control('fire', time)"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="IMAGE PROCESS"
-              @click="imageprocess_s()"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="IMAGE PROCESS STOP"
-              @click="imageprocess_e()"
-            />
-            <label for="time">
-              時間
-              <span class="text-caption">
-              （単位: ms）
-              </span>
-            </label>
-            <div class="input-container input-distance">
-              <input ref = "time" type="number" required step="1" name="time" id="input-time" class="input-normal" placeholder="time" />
+
+            </div>
+            <div class="input-container input-camURL">
+              <q-input
+                outlined
+                v-model="CaptureURL"
+                type="text"
+                name="ESP32CAM"
+                id="input-URL"
+                class="input-normal"
+                label="Capture's URL"
+              />
+            </div>
+            <div class="input-container input-streamURL">
+              <q-input
+                outlined
+                v-model="StreamURL"
+                type="text"
+                name="CAM-stream"
+                id="input-URL"
+                class="input-normal"
+                label="Stream's URL"
+              />
             </div>
           </div>
-          <button id="toggle-stream" @click="toggle_stream">Start Stream</button>
-          <div class="text-caption">
-            {{ control_status_message }}
+          <div class="row q-gutter-md btn-actions">
+            <q-banner rounded class="bg-orange-8 text-white">
+              If you want to stop automatic, please click here :
+              <template v-slot:action>
+                <q-btn
+                  push
+                  color="white"
+                  text-color="red"
+                  class="control-button"
+                  label="START AUTOMATIC"
+                  @click="startautomatic()"
+                />
+                <q-btn
+                  push
+                  color="white"
+                  text-color="red"
+                  class="control-button"
+                  label="STOP AUTOMATIC"
+                  @click="stopautomatic()"
+                />
+              </template>
+            </q-banner>
           </div>
+          <div class="row q-gutter-md btn-actions">
+            <q-banner rounded class="bg-yellow-8 text-white">
+              Please control CanSat with this control panel :
+              <template v-slot:action>
+                <q-btn
+                  push
+                  color="white"
+                  text-color="orange"
+                  label="FORWARD"
+                  @click="control('forward')"
+                />
+                <q-btn
+                  push
+                  color="white"
+                  text-color="orange"
+                  label="BACK"
+                  @click="control('back')"
+                />
+                <q-btn
+                  push
+                  color="white"
+                  text-color="orange"
+                  label="RIGHT"
+                  @click="control('right')"
+                />
+                <q-btn
+                  push
+                  color="white"
+                  text-color="orange"
+                  label="LEFT"
+                  @click="control('left')"
+                />
+              </template>
+            </q-banner>
+            <q-banner rounded class="bg-yellow-8 text-white">
+              If you want to set the running time, please enter it here :
+              <template v-slot:action>
+                <div class="row q-gutter-md btn-actions">
+                  <div class="input-container input-distance">
+                    <input
+                      ref="time"
+                      type="number"
+                      required
+                      step="1"
+                      name="time"
+                      id="input-time"
+                      class="input-normal"
+                      placeholder="time"
+                    />
+                  </div>
+                  <label for="time">
+                    <span class="text-caption"> （ms） </span>
+                  </label>
+                </div>
+              </template>
+            </q-banner>
+            <q-banner rounded class="bg-yellow-8 text-white">
+              If you want to start image process, please click here :
+              <template v-slot:action>
+                <q-btn
+                  push
+                  color="white"
+                  text-color="orange"
+                  label="IMAGE PROCESS"
+                  @click="imageprocess_s()"
+                />
+                <q-btn
+                  push
+                  color="white"
+                  text-color="orange"
+                  label="IMAGE PROCESS STOP"
+                  @click="imageprocess_e()"
+                />
+              </template>
+            </q-banner>
+          </div>
+          <q-banner rounded class="bg-blue-8 text-white">
+            If you want to watch the stream, please click here :
+            <template v-slot:action>
+              <q-btn
+                push
+                color="white"
+                text-color="primary"
+                id="toggle-stream"
+                @click="toggle_stream"
+              >
+                Start Stream
+              </q-btn>
+            </template>
+            <div class="text-caption">
+              {{ control_status_message }}
+            </div>
+          </q-banner>
         </q-card-section>
       </q-card>
     </div>
@@ -87,22 +173,6 @@ import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
-const BACKEND_URL = 'http://192.168.11.11';  //localhost:8000のngrokURL
-var streamUrl = 'http://192.168.11.12:81';
-
-
-const stopStream = () => {
-  const streamButton = document.getElementById('toggle-stream')
-  window.stop();
-  streamButton!.innerHTML = 'Start Stream'
-}
-
-const startStream = () => {
-  const streamButton = document.getElementById('toggle-stream')
-  const view = document.getElementById('stream') as HTMLImageElement
-  view.src = `${streamUrl}/stream`
-  streamButton!.innerHTML = 'Stop Stream'
-}
 
 
 const sleep = (msec: number) =>
@@ -113,16 +183,39 @@ export default defineComponent({
 
   setup() {
     const control_status_message = ref('');
-    const time = ref<HTMLInputElement| null>(null)
+    const time = ref<HTMLInputElement | null>(null);
+    const StreamURL = ref('');
+    const ESP32URL = ref('');
+    const CaptureURL = ref('');
+
+    const stopStream = () => {
+      const streamButton = document.getElementById('toggle-stream');
+      window.stop();
+      streamButton!.innerHTML = 'Start Stream';
+    };
+
+    const startStream = () => {
+      const streamButton = document.getElementById('toggle-stream');
+      const view = document.getElementById('stream') as HTMLImageElement;
+      view.src = `${StreamURL.value}/stream`;
+      streamButton!.innerHTML = 'Stop Stream';
+    };
 
     return {
       time,
       control_status_message,
+      StreamURL,
+      ESP32URL,
+      CaptureURL,
       async control(direction: string) {
         console.log(`Sending ${direction} message...`);
 
         const res = await axios
-          .get(`${BACKEND_URL}/fusion/control/${direction}/${time.value?.value as string}/`)
+          .get(
+            `${process.env.BACKENDURL}/api/v1/control/${direction}/${
+              time.value?.value as string
+            }/?esp=${ESP32URL.value}`
+          )
           .catch(async (err) => {
             control_status_message.value =
               'Something went wrong. Please see console for details.';
@@ -144,23 +237,29 @@ export default defineComponent({
           }
         }
       },
-      toggle_stream(){
-        const streamButton = document.getElementById('toggle-stream')
-        const streamEnabled = streamButton!.innerHTML === 'Stop Stream'
+      toggle_stream() {
+        const streamButton = document.getElementById('toggle-stream');
+        const streamEnabled = streamButton!.innerHTML === 'Stop Stream';
         if (streamEnabled) {
-          stopStream()
+          stopStream();
         } else {
-          startStream()
+          startStream();
         }
       },
-      imageprocess_s(){
-        const res = axios
-          .get(`${BACKEND_URL}/fusion/api/v1/start/`)
+      imageprocess_s() {
+        const res = axios.get(
+          `${process.env.BACKENDURL}/api/v1/image/start/?cap=${CaptureURL.value}&esp=${ESP32URL.value}`
+        );
       },
-      imageprocess_e(){
-        const res = axios
-          .get(`${BACKEND_URL}/fusion/api/v1/end/`)
-      }
+      imageprocess_e() {
+        const res = axios.get(`${process.env.BACKENDURL}/api/v1/image/end/`);
+      },
+      startautomatic() {
+        const res = axios.get(`${ESP32URL.value}/start`);
+      },
+      stopautomatic() {
+        const res = axios.get(`${ESP32URL.value}/end`);
+      },
     };
   },
 });
@@ -195,6 +294,4 @@ export default defineComponent({
   max-width: 50vw;
   width: auto;
 }
-
-
 </style>
