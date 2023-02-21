@@ -259,11 +259,7 @@ export default defineComponent({
         const res = axios.get(`${ESP32URL.value}/start`);
       },
       stopautomatic() {
-<<<<<<< HEAD
-        const res = axios.get(`${ESP32URL.value}/stopautomatic`);
-=======
         const res = axios.get(`${ESP32URL.value}/end`);
->>>>>>> cfc5d96 (index upgrade2)
       },
     };
   },
