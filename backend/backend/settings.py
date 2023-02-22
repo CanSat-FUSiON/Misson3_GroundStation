@@ -65,7 +65,19 @@ INSTALLED_APPS = [
     # Apps
     "image_process",
     "control",
+    "getdate",
+    "django-socketio",
+    "channels",
 ]
+
+# WebSocket用のASGIアプリケーションの設定
+ASGI_APPLICATION = 'backend.routing.application'
+# Channelレイヤーの設定
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -166,3 +178,5 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+SOCKETIO_CHANNEL = 'sensor_date'
+SOCKETIO_DEFAULT_NAMESPACE = 'websocket'

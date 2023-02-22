@@ -1,5 +1,6 @@
 from tracemalloc import stop
 from typing import cast
+import requests
 from rest_framework.views import APIView
 import requests
 from rest_framework.request import Request

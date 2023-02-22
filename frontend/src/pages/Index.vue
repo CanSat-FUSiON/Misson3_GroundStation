@@ -284,11 +284,13 @@ export default defineComponent({
           .get(
             `${ESP32URL.value}/api/v1/image/end/`);
       },
+      startautomatic() {
+        const res = axios.get(`${ESP32URL.value}/start`);
+      },
       stopautomatic() {
-        const res = axios.get(
-          `${ESP32URL.value}/api/v1/image/end/?cap=${CaptureURL.value}`
-        );
-      }
+
+        const res = axios.get(`${ESP32URL.value}/end`);
+      },
 
     };
   },
