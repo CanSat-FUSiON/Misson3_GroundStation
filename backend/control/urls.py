@@ -14,7 +14,7 @@ urlpatterns = [
     path("back//", views.back0APIView.as_view(), name="back0"),
     # path("gps/<int:time>/", views.gpsAPIView.as_view(), name="gps"),
     # path("gps//", views.gps0APIView.as_view(), name="gps0"),
-    path("fire/<int:time>/", views.fireAPIView.as_view(), name='fire'),  # ニクロム線点火
-    path("fire//", views.fire0APIView.as_view(), name='fire0'),
-    path("getdata/", views.getdataAPIView.as_view(), name="getdata"),
+    # path("fire/<int:time>/", views.fireAPIView.as_view(), name='fire'),  # ニクロム線点火
+    # path("fire//", views.fire0APIView.as_view(), name='fire0'),
+    # path("getdata/", views.getdataAPIView.as_view(), name="getdata"),
 ]
