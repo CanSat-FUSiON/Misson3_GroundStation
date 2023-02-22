@@ -6,7 +6,7 @@ from rest_framework import status
 import requests
 
 
-#IP_address_wroom = 'http://192.168.11.11'
+#IP_address_wroom = 'http://192.168.3.7'
 
 
 def getURL(request):
