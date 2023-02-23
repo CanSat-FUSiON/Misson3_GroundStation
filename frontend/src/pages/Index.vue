@@ -59,13 +59,13 @@
             </div>
           </div>
           <p>
-            If you want to stop automatic, please click here : {{ message }}
+            If an emergency arises, please click here immediately : {{ message }}
           </p>
           <div class="row q-gutter-md btn-action">
             <q-btn
             class="control-button"
             rounded
-            label="STOP AUTOMATIC"
+            label="EMERGENCY STOP"
             @click="stopautomatic()"
             />
           </div>
@@ -152,6 +152,7 @@
 import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
+import GpsDate from '@/components/GpsDate.vue'
 
 //const BACKEND_URL = 'http://192.168.11.11';  //localhost:8000のngrokURL
 //var streamUrl = 'http://192.168.3.13:81';
