@@ -20,11 +20,16 @@ from .image_cv2.red_detect_lib import main
 #IP_address_cam = 'http://192.168.11.12'
 #IP_address_wroom = 'http://192.168.11.11'
 
+def getURL(request):
+  if "esp" in request.GET:
+    esp32URL = request.GET.get("esp")
+    return esp32URL
+
 
 class ImageGetterAPIView(APIView):
     def get(self, request: Request) -> Response:
         print ("Hello")
-        r = requests.get(IP_address_cam + '/capture')
+        r = requests.get(getURL(request) + '/capture')
         img_data = r.content  # バイト列に変換
 
         img_array = cv2.imdecode(np.array(bytearray(r.content), dtype=np.uint8), -1)
@@ -35,7 +40,7 @@ class ImageGetterAPIView(APIView):
         occ = control_data[1]
 
         if occ<=0.3:
-            r_2 = requests.get(IP_address_wroom + '/image_automatic' + '?a=' + str(ang))
+            r_2 = requests.get(getURL(request) + '/image_automatic' + '?a=' + str(ang))
 
         return Response()
 
