@@ -101,6 +101,30 @@
             <q-btn
               class="control-button"
               rounded
+              label="RIGHT-FORWARD"
+              @click="control('right_forward')"
+            />
+            <q-btn
+              class="control-button"
+              rounded
+              label="LEFT-FORWARD"
+              @click="control('left_forward')"
+            />
+            <q-btn
+              class="control-button"
+              rounded
+              label="RIGHT-BACK"
+              @click="control('right_back')"
+            />
+            <q-btn
+              class="control-button"
+              rounded
+              label="LEFT-BACK"
+              @click="control('left_back')"
+            />
+            <q-btn
+              class="control-button"
+              rounded
               label="FIRE"
               @click="control('fire')"
             />
