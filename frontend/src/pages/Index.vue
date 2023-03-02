@@ -151,27 +151,6 @@
             />
           </div>
           <p>
-            If you want to set the running time, please enter it here : {{ message }}
-          </p>
-          <div class="row q-gutter-md btn-actions">
-            <div class="input-container input-distance">
-              <input
-              ref = "time"
-              type="number"
-              required
-              step="1"
-              name="time"
-              id="input-time"
-              class="input-normal"
-              placeholder="time" />
-            </div>
-            <label for="time">
-              <span class="text-caption">
-              （ms）
-              </span>
-            </label>
-          </div>
-          <p>
             If you want to watch the stream, please click here : {{ message }}
           </p>
           <button id="toggle-stream" @click="toggle_stream">Start Stream</button>
