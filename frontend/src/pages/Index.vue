@@ -98,6 +98,18 @@
             <q-btn
               class="control-button"
               rounded
+              label="LONG-FORWARD"
+              @click="control('long_forward')"
+            />
+            <q-btn
+              class="control-button"
+              rounded
+              label="SHORT-FORWARD"
+              @click="control('short_forward')"
+            />
+            <q-btn
+              class="control-button"
+              rounded
               label="RIGHT-FORWARD"
               @click="control('right_forward')"
             />
@@ -176,7 +188,7 @@
 import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
-import GpsDate from '@/components/GpsDate.vue'
+
 
 //const BACKEND_URL = 'http://192.168.11.11';  //localhost:8000のngrokURL
 //var streamUrl = 'http://192.168.3.13:81';
@@ -284,7 +296,9 @@ export default defineComponent({
         const res = axios.get(`${ESP32URL.value}/start`);
       },
       stopautomatic() {
-        const res = axios.get(`${ESP32URL.value}/end`);
+        const res =  axios
+        .get(`${ESP32URL.value}/end`);
+        control_status_message.value = 'Automatic control has been stopped. Please start remote control.';
       },
     };
   },
