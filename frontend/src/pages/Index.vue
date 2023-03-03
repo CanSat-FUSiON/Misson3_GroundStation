@@ -18,11 +18,10 @@
           <h3 class="text-h6 view-container-header">Controller</h3>
 
           <q-separator style="margin: 10px -16px 32px -16px" />
-          <p>
-            Please enter URLs here : {{ message }}
-          </p>
+          <p>Please enter URLs here : {{ message }}</p>
 
           <div class="row q-gutter-md btn-actions">
+
             <div class="input-container input-comURL">
               <q-input
               outlined
@@ -33,10 +32,12 @@
               class="input-normal"
               label="Computer's URL"
               />
+
             </div>
 
             <div class="input-container input-camURL">
               <q-input
+
               outlined
               v-model="CaptureURL"
               type="text"
@@ -44,11 +45,13 @@
               id="input-URL"
               class="input-normal"
               label="Capture's URL"
+
               />
             </div>
 
             <div class="input-container input-streamURL">
               <q-input
+
               outlined
               v-model="StreamURL"
               type="text"
@@ -137,7 +140,6 @@
               label="FIRE"
               @click="control('fire')"
             />
-
           </div>
           <p>
             If you want to watch the stream, please click here : {{ message }}
@@ -145,7 +147,25 @@
           <button id="toggle-stream" @click="toggle_stream">Start Stream</button>
           <div class="text-caption">
             {{ control_status_message }}
+
           </div>
+          <q-banner rounded class="bg-blue-8 text-white">
+            If you want to watch the stream, please click here :
+            <template v-slot:action>
+              <q-btn
+                push
+                color="white"
+                text-color="primary"
+                id="toggle-stream"
+                @click="toggle_stream"
+              >
+                Start Stream
+              </q-btn>
+            </template>
+            <div class="text-caption">
+              {{ control_status_message }}
+            </div>
+          </q-banner>
         </q-card-section>
       </q-card>
     </div>
@@ -156,6 +176,7 @@
 import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
+
 
 
 //const BACKEND_URL = 'http://192.168.11.11';  //localhost:8000のngrokURL
@@ -176,6 +197,7 @@ import { defineComponent, ref } from 'vue';
 //}
 
 
+
 const sleep = (msec: number) =>
   new Promise((resolve) => setTimeout(resolve, msec));
 
@@ -189,12 +211,14 @@ export default defineComponent({
     const ESP32URL = ref('');
     const CaptureURL = ref('');
 
+
     const startStream = () => {
       const streamButton = document.getElementById('toggle-stream');
       const view = document.getElementById('stream') as HTMLImageElement;
       view.src = `${StreamURL.value}/stream`;
       streamButton!.innerHTML = 'Stop Stream';
     };
+
 
     const stopStream = () => {
       const streamButton = document.getElementById('toggle-stream');
@@ -213,15 +237,17 @@ export default defineComponent({
 
         const res = await axios
           .get(
+
             `${ESP32URL.value}/api/v1/control/${direction}/${
               time.value?.value as string
             }/?esp=${ESP32URL.value}`
             )
+
           .catch(async (err) => {
             control_status_message.value =
               'Something went wrong. Please see console for details.';
             console.log(err);
-            await sleep(3000);
+            await sleep(10000);
             control_status_message.value = '';
           });
 
@@ -242,12 +268,15 @@ export default defineComponent({
         const streamButton = document.getElementById('toggle-stream');
         const streamEnabled = streamButton!.innerHTML === 'Stop Stream';
         if (streamEnabled) {
+
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
           stopStream();
         } else {
           startStream();
         }
       },
+
       imageprocess_s(){
         const res = axios
           .get(
@@ -264,10 +293,16 @@ export default defineComponent({
         const res = axios.get(`${ESP32URL.value}/start`);
       },
       stopautomatic() {
+<<<<<<< HEAD
         const res =  axios
         .get(`${ESP32URL.value}/end`);
         control_status_message.value = 'Automatic control has been stopped. Please start remote control.';
+=======
+
+        const res = axios.get(`${ESP32URL.value}/end`);
+>>>>>>> refs/remotes/origin/220324
       },
+
     };
   },
 });
@@ -302,6 +337,4 @@ export default defineComponent({
   max-width: 50vw;
   width: auto;
 }
-
-
 </style>

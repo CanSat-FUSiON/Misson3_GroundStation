@@ -23,4 +23,5 @@ urlpatterns = [
     #path("fire/<int:time>/", views.fireAPIView.as_view(), name='fire'),  # ニクロム線点火
     path("fire//", views.fire0APIView.as_view(), name='fire0'),
     path("getdata/", views.getdataAPIView.as_view(), name="getdata"),
+
 ]
