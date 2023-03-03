@@ -137,18 +137,7 @@
               label="FIRE"
               @click="control('fire')"
             />
-            <q-btn
-              class="control-button"
-              rounded
-              label="IMAGE PROCESS"
-              @click="imageprocess_s()"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="IMAGE PROCESS STOP"
-              @click="imageprocess_e()"
-            />
+
           </div>
           <p>
             If you want to watch the stream, please click here : {{ message }}
