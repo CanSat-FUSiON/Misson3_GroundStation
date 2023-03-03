@@ -61,95 +61,123 @@
               placeholder="Stream's URL" />
             </div>
           </div>
-          <p>
-            If an emergency arises, please click here immediately : {{ message }}
-          </p>
           <div class="row q-gutter-md btn-action">
-            <q-btn
-            class="control-button"
-            rounded
-            label="EMERGENCY STOP"
-            @click="stopautomatic()"
-            />
+            <q-banner rounded class="bg-yellow-8 text-white">
+              If you want to stop automatic, please click here :
+              <template v-slot:action>
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  class="control-button"
+                  rounded
+                  label="STOP AUTOMATIC"
+                  @click="stopautomatic()"
+                />
+              </template>
+            </q-banner>
           </div>
-          <p>Please control CanSat with control panel : {{ message }}</p>
-          <div class="row q-gutter-md btn-actions">
-            <q-btn
-              class="control-button"
-              rounded
-              label="FORWARD"
-              @click="control('forward')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="BACK"
-              @click="control('back')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="RIGHT"
-              @click="control('right')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="LEFT"
-              @click="control('left')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="LONG-FORWARD"
-              @click="control('long_forward')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="SHORT-FORWARD"
-              @click="control('short_forward')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="RIGHT-FORWARD"
-              @click="control('right_forward')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="LEFT-FORWARD"
-              @click="control('left_forward')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="RIGHT-BACK"
-              @click="control('right_back')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="LEFT-BACK"
-              @click="control('left_back')"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="FIRE"
-              @click="control('fire')"
-            />
-          </div>
-          <p>
-            If you want to watch the stream, please click here : {{ message }}
-          </p>
-          <button id="toggle-stream" @click="toggle_stream">Start Stream</button>
-          <div class="text-caption">
-            {{ control_status_message }}
 
+          <div class="row q-gutter-md btn-actions">
+            <q-banner rounded class="bg-yellow-8 text-white">
+              Please control CanSat with this control panel :
+              <template v-slot:action>
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="FORWARD"
+                  @click="control('forward')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="BACK"
+                  @click="control('back')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="RIGHT"
+                  @click="control('right')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="LEFT"
+                  @click="control('left')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="LONG-FORWARD"
+                  @click="control('long_forward')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="SHORT-FORWARD"
+                  @click="control('short_forward')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="RIGHT-FORWARD"
+                  @click="control('right_forward')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="LEFT-FORWARD"
+                  @click="control('left_forward')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="RIGHT-BACK"
+                  @click="control('right_back')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="LEFT-BACK"
+                  @click="control('left_back')"
+                />
+                <q-btn
+                  push
+                  color="primary"
+                  text-color="white"
+                  label="FIRE"
+                  @click="control('fire')"
+                />
+              </template>
+            </q-banner>
           </div>
-        
+          <q-bammer rounded class="bg-red-8 text-white">
+            If you want to watch the stream, please click here :
+            <template v-slot:action>
+              <q-btn
+              push
+                color="primary"
+                text-color="white"
+                id="toggle_stream"
+                >
+                  Start Stream
+              </q-btn>
+              <div class="text-caption">
+                {{  control_status_message }}
+              </div>
+            </template>
+          </q-bammer>
         </q-card-section>
       </q-card>
     </div>
