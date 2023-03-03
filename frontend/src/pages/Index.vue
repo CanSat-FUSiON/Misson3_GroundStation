@@ -169,23 +169,7 @@
             {{ control_status_message }}
 
           </div>
-          <q-banner rounded class="bg-blue-8 text-white">
-            If you want to watch the stream, please click here :
-            <template v-slot:action>
-              <q-btn
-                push
-                color="white"
-                text-color="primary"
-                id="toggle-stream"
-                @click="toggle_stream"
-              >
-                Start Stream
-              </q-btn>
-            </template>
-            <div class="text-caption">
-              {{ control_status_message }}
-            </div>
-          </q-banner>
+        
         </q-card-section>
       </q-card>
     </div>
