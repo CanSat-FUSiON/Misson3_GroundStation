@@ -293,14 +293,9 @@ export default defineComponent({
         const res = axios.get(`${ESP32URL.value}/start`);
       },
       stopautomatic() {
-<<<<<<< HEAD
         const res =  axios
         .get(`${ESP32URL.value}/end`);
         control_status_message.value = 'Automatic control has been stopped. Please start remote control.';
-=======
-
-        const res = axios.get(`${ESP32URL.value}/end`);
->>>>>>> refs/remotes/origin/220324
       },
 
     };
