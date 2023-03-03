@@ -101,6 +101,18 @@
             <q-btn
               class="control-button"
               rounded
+              label="LONG-FORWARD"
+              @click="control('long_forward')"
+            />
+            <q-btn
+              class="control-button"
+              rounded
+              label="SHORT-FORWARD"
+              @click="control('short_forward')"
+            />
+            <q-btn
+              class="control-button"
+              rounded
               label="RIGHT-FORWARD"
               @click="control('right_forward')"
             />
@@ -128,38 +140,6 @@
               label="FIRE"
               @click="control('fire')"
             />
-            <q-btn
-              class="control-button"
-              rounded
-              label="IMAGE PROCESS"
-              @click="imageprocess_s()"
-            />
-            <q-btn
-              class="control-button"
-              rounded
-              label="IMAGE PROCESS STOP"
-              @click="imageprocess_e()"
-            />
-
-          </div>
-          <div class="row q-gutter-md btn-actions">
-
-            <div class="input-container input-distance">
-              <input
-              ref = "time"
-              type="number"
-              required
-              step="1"
-              name="time"
-              id="input-time"
-              class="input-normal"
-              placeholder="time" />
-            </div>
-            <label for="time">
-              <span class="text-caption">
-              （ms）
-              </span>
-            </label>
           </div>
           <p>
             If you want to watch the stream, please click here : {{ message }}
@@ -180,7 +160,7 @@
 import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
-import GpsDate from '@/components/GpsDate.vue'
+
 
 
 //const BACKEND_URL = 'http://192.168.11.11';  //localhost:8000のngrokURL
@@ -297,8 +277,9 @@ export default defineComponent({
         const res = axios.get(`${ESP32URL.value}/start`);
       },
       stopautomatic() {
-
-        const res = axios.get(`${ESP32URL.value}/end`);
+        const res =  axios
+        .get(`${ESP32URL.value}/end`);
+        control_status_message.value = 'Automatic control has been stopped. Please start remote control.';
       },
 
     };

@@ -14,13 +14,13 @@ def getURL(request):
     esp32URL = request.GET.get("esp")
     return esp32URL
 
-class rightAPIView(APIView):
-    def get(self, request: Request, time) -> Response:
-        r = requests.get(getURL(request) + "/right" + "?ms=" + str(time))
-        if r.status_code == 200:
-            return Response()
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+#class rightAPIView(APIView):
+    #def get(self, request: Request, time) -> Response:
+        #r = requests.get(getURL(request) + "/right" + "?ms=" + str(time))
+        #if r.status_code == 200:
+            #return Response()
+        #else:
+            #return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class right0APIView(APIView):
@@ -32,13 +32,12 @@ class right0APIView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-class leftAPIView(APIView):
-    def get(self, request: Request, time) -> Response:
-        r = requests.get(getURL(request) + "/left" + "?ms=" + str(time))
-        if r.status_code == 200:
-            return Response()
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+#class leftAPIView(APIView):
+    #r = requests.get(getURL(request) + "/left" + "?ms=" + str(time))
+        #if r.status_code == 200:
+           # return Response()
+        #else:
+            #return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class left0APIView(APIView):
@@ -50,13 +49,13 @@ class left0APIView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-class forwardAPIView(APIView):
-    def get(self, request: Request, time) -> Response:
-        r = requests.get(getURL(request) + "/forward" + "?ms=" + str(time))
-        if r.status_code == 200:
-            return Response()
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+#class forwardAPIView(APIView):
+    #def get(self, request: Request, time) -> Response:
+        #r = requests.get(getURL(request) + "/forward" + "?ms=" + str(time))
+        #if r.status_code == 200:
+            #return Response()
+        #else:
+            #return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class forward0APIView(APIView):
@@ -68,13 +67,13 @@ class forward0APIView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-class backAPIView(APIView):
-    def get(self, request: Request, time) -> Response:
-        r = requests.get(getURL(request) + "/back" + "?ms=" + str(time))
-        if r.status_code == 200:
-            return Response()
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+#class backAPIView(APIView):
+    #def get(self, request: Request, time) -> Response:
+        #r = requests.get(getURL(request) + "/back" + "?ms=" + str(time))
+        #if r.status_code == 200:
+            #return Response()
+        #else:
+            #return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class back0APIView(APIView):
@@ -85,6 +84,21 @@ class back0APIView(APIView):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+class back0APIView(APIView):
+    def get(self, request: Request) -> Response:
+        r = requests.get(getURL(request) + "/long_forward")
+        if r.status_code == 200:
+            return Response()
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+class back0APIView(APIView):
+    def get(self, request: Request) -> Response:
+        r = requests.get(getURL(request) + "/short_forward")
+        if r.status_code == 200:
+            return Response()
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 class back0APIView(APIView):
     def get(self, request: Request) -> Response:
