@@ -62,15 +62,14 @@
             </div>
           </div>
           <div class="row q-gutter-md btn-action">
-            <q-banner rounded class="bg-yellow-8 text-white">
+            <q-banner rounded class="bg-orange-8 text-white">
               If you want to stop automatic, please click here :
               <template v-slot:action>
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="red"
                   class="control-button"
-                  rounded
                   label="STOP AUTOMATIC"
                   @click="stopautomatic()"
                 />
@@ -84,95 +83,96 @@
               <template v-slot:action>
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="FORWARD"
                   @click="control('forward')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="BACK"
                   @click="control('back')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="RIGHT"
                   @click="control('right')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="LEFT"
                   @click="control('left')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="LONG-FORWARD"
                   @click="control('long_forward')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="SHORT-FORWARD"
                   @click="control('short_forward')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="RIGHT-FORWARD"
                   @click="control('right_forward')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="LEFT-FORWARD"
                   @click="control('left_forward')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="RIGHT-BACK"
                   @click="control('right_back')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="LEFT-BACK"
                   @click="control('left_back')"
                 />
                 <q-btn
                   push
-                  color="primary"
-                  text-color="white"
+                  color="white"
+                  text-color="orange"
                   label="FIRE"
                   @click="control('fire')"
                 />
               </template>
             </q-banner>
           </div>
-          <q-bammer rounded class="bg-red-8 text-white">
+          <q-bammer rounded class="bg-blue-8 text-white">
             If you want to watch the stream, please click here :
             <template v-slot:action>
               <q-btn
-              push
-                color="primary"
-                text-color="white"
+                push
+                color="white"
+                text-color="primary"
                 id="toggle_stream"
+                @click="toggle_stream"
                 >
                   Start Stream
-              </q-btn>
+            </q-btn>
               <div class="text-caption">
                 {{  control_status_message }}
               </div>
@@ -186,6 +186,7 @@
 
 <script lang="ts">
 import axios from 'axios';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
@@ -280,9 +281,6 @@ export default defineComponent({
         const streamButton = document.getElementById('toggle-stream');
         const streamEnabled = streamButton!.innerHTML === 'Stop Stream';
         if (streamEnabled) {
-
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-
           stopStream();
         } else {
           startStream();
