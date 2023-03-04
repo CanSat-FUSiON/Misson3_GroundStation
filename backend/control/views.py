@@ -116,21 +116,21 @@ class back0APIView(APIView):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-class back0APIView(APIView):
-    def get(self, request: Request) -> Response:
-        r = requests.get(getURL(request) + "/right_back")
-        if r.status_code == 200:
-            return Response()
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+#class back0APIView(APIView):
+ #   def get(self, request: Request) -> Response:
+  #      r = requests.get(getURL(request) + "/right_back")
+   #     if r.status_code == 200:
+    #        return Response()
+     #   else:
+      #      return Response(status=status.HTTP_404_NOT_FOUND)
 
-class back0APIView(APIView):
-    def get(self, request: Request) -> Response:
-        r = requests.get(getURL(request) + "/left_back")
-        if r.status_code == 200:
-            return Response()
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+#class back0APIView(APIView):
+#    def get(self, request: Request) -> Response:
+#        r = requests.get(getURL(request) + "/left_back")
+#        if r.status_code == 200:
+ #           return Response()
+  #      else:
+   #         return Response(status=status.HTTP_404_NOT_FOUND)
 
 # class gpsAPIView(APIView):
 #     def get(self, request: Request, time) -> Response:
