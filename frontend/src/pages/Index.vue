@@ -64,8 +64,8 @@
             />
             <label for="time">
               時間
-              <span class="text-caption"> 
-              （単位: ms） 
+              <span class="text-caption">
+              （単位: ms）
               </span>
             </label>
             <div class="input-container input-distance">
@@ -88,7 +88,7 @@ import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
 const BACKEND_URL = 'http://127.0.0.1:8000';  //localhost:8000のngrokURL
-var streamUrl = 'http://192.168.3.13:81';
+var streamUrl = 'https://098e-2409-13-7040-9a00-ed2b-63db-6739-bcdf.jp.ngrok.io'; //ローカル環境を立ち上げる，ngrokでトンネリングする，ストリーム用のURLを踏んでVisit Siteをクリック，ストリーム用のURLをコードに書き込む，ローカル環境で動作するか確認する，ngrokでトンネリングしたフロントエンドのURLを踏む
 
 
 const stopStream = () => {
