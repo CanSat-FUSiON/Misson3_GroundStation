@@ -128,6 +128,17 @@
               label="FIRE"
               @click="control('fire')"
             />
+
+            <label for="time">
+              時間
+              <span class="text-caption">
+              （単位: ms）
+              </span>
+            </label>
+            <div class="input-container input-distance">
+              <input ref = "time" type="number" required step="1" name="time" id="input-time" class="input-normal" placeholder="time" />
+            </div>
+
           </div>
           <p>
             If you want to watch the stream, please click here : {{ message }}
@@ -149,6 +160,10 @@ import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
+
+const BACKEND_URL = 'http://127.0.0.1:8080';  //localhost:8000のngrokURL
+var streamUrl = 'https://3b56-2409-13-7040-9a00-9937-2a2e-31c4-61bd.ngrok-free.app'; //ローカル環境を立ち上げる，ngrokでトンネリングする，ストリーム用のURLを踏んでVisit Siteをクリック，ストリーム用のURLをコードに書き込む，ローカル環境で動作するか確認する，ngrokでトンネリングしたフロントエンドのURLを踏む
+const IP_address_wroom = 'http://0.tcp.jp.ngrok.io:16128/'
 
 
 //const BACKEND_URL = 'http://192.168.11.11';  //localhost:8000のngrokURL
@@ -208,12 +223,8 @@ export default defineComponent({
         console.log(`Sending ${direction} message...`);
 
         const res = await axios
-          .get(
 
-            `${ESP32URL.value}/api/v1/control/${direction}/${
-              time.value?.value as string
-            }/?esp=${ESP32URL.value}`
-            )
+          .get(`${IP_address_wroom}/fusion/control/${direction}/${time.value?.value as string}/`)
 
           .catch(async (err) => {
             control_status_message.value =
@@ -251,24 +262,13 @@ export default defineComponent({
 
       imageprocess_s(){
         const res = axios
-          .get(
-            `${ESP32URL.value}/api/v1/image/start/?cap=${
-              CaptureURL.value}&esp=${ESP32URL.value}`
-              );
+
+          .get(`${IP_address_wroom}/fusion/api/v1/start/`)
       },
       imageprocess_e(){
         const res = axios
-          .get(
-            `${ESP32URL.value}/api/v1/image/end/`);
-      },
-      startautomatic() {
-        const res = axios.get(`${ESP32URL.value}/start`);
-      },
-      stopautomatic() {
-        const res =  axios
-        .get(`${ESP32URL.value}/end`);
-        control_status_message.value = 'Automatic control has been stopped. Please start remote control.';
-      },
+          .get(`${IP_address_wroom}/fusion/api/v1/end/`)
+      }
 
     };
   },
