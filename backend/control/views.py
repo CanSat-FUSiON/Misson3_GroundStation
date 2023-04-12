@@ -6,17 +6,21 @@ from rest_framework import status
 import requests
 
 
+#IP_address_wroom = 'http://192.168.3.7'
 
-IP_address_wroom = 'http://192.168.11.15'
 
-class rightAPIView(APIView):
-    def get(self, request: Request, time) -> Response:
-        r = requests.get(IP_address_wroom + '/right' + '?ms=' + str(time))
-        if r.status_code==200:
-            return Response()
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+def getURL(request):
+  if "esp" in request.GET:
+    esp32URL = request.GET.get("esp")
+    return esp32URL
 
+#class rightAPIView(APIView):
+    #def get(self, request: Request, time) -> Response:
+        #r = requests.get(getURL(request) + "/right" + "?ms=" + str(time))
+        #if r.status_code == 200:
+            #return Response()
+        #else:
+            #return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class right0APIView(APIView):
@@ -28,12 +32,21 @@ class right0APIView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+#class leftAPIView(APIView):
+    #r = requests.get(getURL(request) + "/left" + "?ms=" + str(time))
+        #if r.status_code == 200:
+           # return Response()
+        #else:
+            #return Response(status=status.HTTP_404_NOT_FOUND)
 
-class leftAPIView(APIView):
-    def get(self, request: Request, time) -> Response:
-        r = requests.get(IP_address_wroom + '/left' + '?ms=' + str(time))
-        if r.status_code==200:
 
+class left0APIView(APIView):
+    def get(self, request: Request) -> Response:
+        r = requests.get(getURL(request) + "/left")
+        if r.status_code == 200:
+            return Response()
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 #class forwardAPIView(APIView):
@@ -47,9 +60,11 @@ class leftAPIView(APIView):
 
 class forward0APIView(APIView):
     def get(self, request: Request) -> Response:
-
-        r = requests.get(IP_address_wroom + '/left')
-        if r.status_code==200:
+        r = requests.get(getURL(request) + "/forward")
+        if r.status_code == 200:
+            return Response()
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 #class backAPIView(APIView):
@@ -68,7 +83,6 @@ class back0APIView(APIView):
             return Response()
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
 
 class back0APIView(APIView):
     def get(self, request: Request) -> Response:
@@ -93,7 +107,6 @@ class back0APIView(APIView):
             return Response()
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
 
 class back0APIView(APIView):
     def get(self, request: Request) -> Response:
