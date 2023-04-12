@@ -87,9 +87,9 @@ import axios from 'axios';
 import internal from 'stream';
 import { defineComponent, ref } from 'vue';
 
-const BACKEND_URL = 'http://127.0.0.1:8000';  //localhost:8000のngrokURL
-var streamUrl = 'https://098e-2409-13-7040-9a00-ed2b-63db-6739-bcdf.jp.ngrok.io'; //ローカル環境を立ち上げる，ngrokでトンネリングする，ストリーム用のURLを踏んでVisit Siteをクリック，ストリーム用のURLをコードに書き込む，ローカル環境で動作するか確認する，ngrokでトンネリングしたフロントエンドのURLを踏む
-
+const BACKEND_URL = 'http://127.0.0.1:8080';  //localhost:8000のngrokURL
+var streamUrl = 'https://3b56-2409-13-7040-9a00-9937-2a2e-31c4-61bd.ngrok-free.app'; //ローカル環境を立ち上げる，ngrokでトンネリングする，ストリーム用のURLを踏んでVisit Siteをクリック，ストリーム用のURLをコードに書き込む，ローカル環境で動作するか確認する，ngrokでトンネリングしたフロントエンドのURLを踏む
+const IP_address_wroom = 'http://0.tcp.jp.ngrok.io:16128/'
 
 const stopStream = () => {
   const streamButton = document.getElementById('toggle-stream')
@@ -122,7 +122,7 @@ export default defineComponent({
         console.log(`Sending ${direction} message...`);
 
         const res = await axios
-          .get(`${BACKEND_URL}/fusion/control/${direction}/${time.value?.value as string}/`)
+          .get(`${IP_address_wroom}/fusion/control/${direction}/${time.value?.value as string}/`)
           .catch(async (err) => {
             control_status_message.value =
               'Something went wrong. Please see console for details.';
@@ -155,11 +155,11 @@ export default defineComponent({
       },
       imageprocess_s(){
         const res = axios
-          .get(`${BACKEND_URL}/fusion/api/v1/start/`)
+          .get(`${IP_address_wroom}/fusion/api/v1/start/`)
       },
       imageprocess_e(){
         const res = axios
-          .get(`${BACKEND_URL}/fusion/api/v1/end/`)
+          .get(`${IP_address_wroom}/fusion/api/v1/end/`)
       }
     };
   },
