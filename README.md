@@ -89,11 +89,19 @@ git clone https://github.com/CanSat-FUSiON/MISSON3-SERVER-sample
 ```
 
 # 実行方法
-サーバーを立ち上げるには，このコマンドを実行する
+## quasar
+フロントエンドサーバーを立ち上げるには，このコマンドを実行する
 ```console
 cd MISSON3-SERVER-sample
 cd frontend
 npm run dev
+```
+## Django
+バックエンドサーバーを立ち上げるには，このコマンドを実行する
+```console
+cd MISSON3-SERVER-sample
+cd backend
+python3 manage.py runserver
 ```
 
 
